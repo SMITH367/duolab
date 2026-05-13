@@ -19,7 +19,7 @@ if ($web_dir_name === '/') {
 
 // Set the default timezone
 // This is important for date and time functions to work correctly
-date_default_timezone_set("America/Lima");
+date_default_timezone_set("America/Bogota");
 
 // Load Web Functions
 include_once dirname(__DIR__, 2) . "/modules/web_functions.php";
@@ -28,17 +28,17 @@ $functions = new WebFunctions();
 if (isset($_GET["url"])) {
 
     // Initialize and check session
-    include_once $web_root_dir.'/global/session.php';
+    include_once $web_root_dir . '/global/session.php';
 
     // Web Header (Navbar)
-    include $web_root_dir."/views/template/header.php";
+    include $web_root_dir . "/views/template/header.php";
 
     // Web Sidebar
-    include $web_root_dir."/views/template/sidebar.php";
+    include $web_root_dir . "/views/template/sidebar.php";
 
     // Web View (Content)
     $url = explode("/", $_GET["url"]);
-    
+
     // If the URL starts with 'views/', we ignore that first part for routing purposes
     if ($url[0] == 'views') {
         array_shift($url);
@@ -47,7 +47,7 @@ if (isset($_GET["url"])) {
     // Join the remaining parts to form the path to the view file
     $url_complete = implode("/", $url);
     $page_name = end($url);
-    
+
     $view_file = $web_root_dir . "/views/" . $url_complete . ".php";
 
     if (file_exists($view_file)) {
@@ -58,13 +58,13 @@ if (isset($_GET["url"])) {
     }
 
     // Web Footer
-    include $web_root_dir."/views/template/footer.php";
+    include $web_root_dir . "/views/template/footer.php";
 
     // AJAX Directory Path
-    $ajax_dir_path = $functions->direct_sistema()."/ajax/".$page_name.".js?v=".SCRIPT_VER;
+    $ajax_dir_path = $functions->direct_sistema() . "/ajax/" . $page_name . ".js?v=" . SCRIPT_VER;
 
     // AJAX Directory Relative Path
-    $ajax_dir_rel_path = $functions->directorio_carpetas()."/ajax/".$page_name.".js";
+    $ajax_dir_rel_path = $functions->directorio_carpetas() . "/ajax/" . $page_name . ".js";
 
     // Check if an AJAX file for requested view exists 
     if (file_exists($ajax_dir_rel_path)) {
