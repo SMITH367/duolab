@@ -6,7 +6,7 @@ $(document).ready(function(){
   $("#m_compras").attr("class","nav-link active");
   $("#m_compras").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_resumen_compra").attr("class","nav-link active");
-  $(document).prop('title', 'Resumen de Compras - DuoLab Group');
+  $(document).prop('title', 'Resumen de Compras - CREAMOS');
 });
 
 var tbl_ordenes = $("#table-ordenes").DataTable({
@@ -30,7 +30,7 @@ var tbl_ordenes = $("#table-ordenes").DataTable({
                 text: '<i class="fa fa-print"></i>&nbsp;&nbsp;Imprimir'
             } 
         ],
-  language: { url: "../../plugins/datatables/Spanish.json" }
+  language: { url: "plugins/datatables/Spanish.json" }
 });
 
 tbl_ordenes.columns([0]).visible(false);
@@ -38,7 +38,7 @@ tbl_ordenes.columns([0]).visible(false);
 /*
 $('input[name="orden_numero"]').autocomplete({
     source: function(request, response) {
-      $.getJSON("../../modules/ordenes/obtener-ordenes.php", { ORDEN_NRO: $('input[name="orden_numero"]').val() }, response);
+      $.getJSON("modules/ordenes/obtener-ordenes.php", { ORDEN_NRO: $('input[name="orden_numero"]').val() }, response);
     },
     select: function (event, ui) {
       $(this).val(ui.item.label);
@@ -48,7 +48,7 @@ $('input[name="orden_numero"]').autocomplete({
 
 $('input[name="orden_proveedor"]').autocomplete({  
     source: function(request, response) {
-      $.getJSON("../../modules/proveedores/obtener-proveedores.php", { 
+      $.getJSON("modules/proveedores/obtener-proveedores.php", { 
         NOM_PROV: $('input[name="orden_proveedor"]').val()
       }, response);
     },
@@ -115,7 +115,7 @@ $('select[name="ordenes_tipo"]').on("change", function() {
     $("#btn-nuevo").prop("disabled",false);
     
     $.post(
-      "../../modules/ordenes/consultar-compra.php",
+      "modules/ordenes/consultar-compra.php",
       { FILTER: "ALL", ESTADO: "ALL", TIPO_ORDEN: ORD_TIPO },
       function(data) {
         tbl_ordenes.clear().draw();
@@ -148,16 +148,16 @@ $('select[name="ordenes_tipo"]').on("change", function() {
 */
 
 $("#btn-nuevo").click(function(){
-  location.href = "compra-interna";
+  location.href = "compras/compra-interna";
   /*
     tipo_ord = $(this).attr("js-type");
     if(tipo_ord != ""){
         switch (tipo_ord) {
             case "COMPRA":
-                location.href = "orden-de-compra";
+                location.href = "ordenes/orden-de-compra";
             break;
             case "SERVICIO":
-                location.href = "orden-de-servicio";
+                location.href = "ordenes/orden-de-servicio";
             break;
         }
     }
@@ -181,7 +181,7 @@ $("#btn-buscar").click(function(){
         }
     });
     $.post(
-        "../../modules/compras/filtrar-compras.php",
+        "modules/compras/filtrar-compras.php",
         { orden_nroo:orden_nroo, orden_prov:orden_prov, orden_fini:orden_fini, orden_ffin:orden_ffin },
         function(data) {
             tbl_ordenes.clear().draw();
@@ -221,14 +221,14 @@ $("#table-ordenes").contextMenu({
           case "edit":
               crear_cookie('COOKIE_ID_ORDEN', row_id, 1, "/");
               if(row_tipo == 1){
-                  location.href = "compra-interna";
+                  location.href = "compras/compra-interna";
               } else {
-                  location.href = "compra-interna";
+                  location.href = "compras/compra-interna";
               }
               break;
           case "delete":
               $.post(
-                  "../../modules/compras/anular-compra.php",
+                  "modules/compras/anular-compra.php",
                   { ID_ORDEN:row_id },
                   function(data) {
                     if(data == true){
@@ -274,7 +274,7 @@ function listarCompras(){
     }});
 
   $.post(
-    "../../modules/compras/filtrar-compras.php",
+    "modules/compras/filtrar-compras.php",
     { orden_nroo:"", orden_prov:"", orden_fini:"", orden_ffin:""},
     function(data) {
       tbl_ordenes.clear().draw();
@@ -298,3 +298,5 @@ function listarCompras(){
     Swal.close();
   });
 }
+
+

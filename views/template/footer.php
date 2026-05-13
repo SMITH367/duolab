@@ -5,7 +5,7 @@
       
     </div>
     <!-- Default to the left -->
-    <strong>&copy; 2025 DuoLab Group</strong>
+    <strong>&copy; 2025 CREAMOS</strong>
   </footer>
 </div>
 <!-- ./wrapper -->
@@ -16,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 
 <!-- Script for Notifications -->
-<script src="<?php echo $functions->direct_sistema(); ?>/js/notifications.js"></script>
+<script src="js/notifications.js"></script>
 
 <!-- jQuery UI -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- AdminLTE App -->
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-rc3/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
 <!-- Flot - Attractive JavaScript plotting for jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/flot@4.2.2/dist/es5/jquery.flot.min.js"></script>
@@ -43,21 +43,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/js/all.min.js"></script>
 
 <!-- Context Menu JS -->
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/context-menu/jquery.contextMenu.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/context-menu/jquery.ui.position.js"></script>
+<script src="plugins/context-menu/jquery.contextMenu.min.js"></script>
+<script src="plugins/context-menu/jquery.ui.position.js"></script>
 
 <!-- DataTables -->
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/jquery.dataTables.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables-bs4/dataTables.bootstrap4.js"></script>
+<script src="plugins/datatables/jquery.dataTables.js"></script>
+<script src="plugins/datatables-bs4/dataTables.bootstrap4.js"></script>
 
 <!-- DataTables Buttons -->
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/dataTables.buttons.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/buttons.html5.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/buttons.flash.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/buttons.print.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/jszip.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/pdfmake.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/vfs_fonts.js"></script>
+<script src="plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="plugins/datatables/buttons.html5.min.js"></script>
+<script src="plugins/datatables/buttons.flash.min.js"></script>
+<script src="plugins/datatables/buttons.print.min.js"></script>
+<script src="plugins/datatables/jszip.min.js"></script>
+<script src="plugins/datatables/pdfmake.min.js"></script>
+<script src="plugins/datatables/vfs_fonts.js"></script>
 
 <!-- Moment JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -67,11 +67,11 @@
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/notifyjs/dist/notify.min.js"></script>
-<script src="<?php echo $functions->direct_sistema(); ?>/plugins/notifications/notify-metro.js"></script>
+<script src="plugins/notifyjs/dist/notify.min.js"></script>
+<script src="plugins/notifications/notify-metro.js"></script>
 
 <!-- Footer functions -->
-<script src="<?php echo $functions->direct_sistema(); ?>/js/footer-functions.js"></script>
+<script src="js/footer-functions.js"></script>
 
 </body>
 </html>

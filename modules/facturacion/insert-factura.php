@@ -47,17 +47,18 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
     $prec_prod = 0;
     $import_prod = 0;
     $cant_prod = 0;
-    
+
     $sqlStatement = $pdo->prepare("INSERT INTO tbl_invoice (series,number,status,quotation_id,customer_id,ruc,name,address,reference,payment_days,date,delivery_date,currency,discount_rate,discount_value,total_sub,total_tax,total_net,seller_id,user_id,registration_date,last_update) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     if ($sqlStatement) {
-        $sqlStatement->execute([$f_series,$f_faccod, $f_estado, $f_selectcotizid, $f_cliid, $f_cli_ruc, $f_clinom, $f_clidirecc, $f_clirefer, $f_diaspag, $f_fecha, $f_clifecentreg, $f_currency, $f_porcdesc, $f_valdesc, $f_subtotal, $f_taxigv, $f_totalneto, $f_seller_id, $f_user_id, $f_fecreg, $f_fecreg]);
-        echo "OK_INSERT";
+        $sqlStatement->execute([$f_series, $f_faccod, $f_estado, $f_selectcotizid, $f_cliid, $f_cli_ruc, $f_clinom, $f_clidirecc, $f_clirefer, $f_diaspag, $f_fecha, $f_clifecentreg, $f_currency, $f_porcdesc, $f_valdesc, $f_subtotal, $f_taxigv, $f_totalneto, $f_seller_id, $f_user_id, $f_fecreg, $f_fecreg]);
 
         $LSTMAXID = $pdo->prepare("SELECT MAX(id) AS MAXID FROM tbl_invoice ORDER BY id DESC");
         $LSTMAXID->execute();
+        $id_facturacion = 0;
         while ($LMI = $LSTMAXID->fetch()) {
             $id_facturacion = $LMI["MAXID"];
         }
+        echo "OK_INSERT|" . $id_facturacion;
     } else {
         echo "ERROR";
     }
@@ -94,15 +95,15 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                 //ACTUALIZAR STOCK PRODUCTO
                 $lstprodxid = $pdo->prepare("SELECT * FROM tbl_product WHERE id=" . $id_prod . " ");
                 $lstprodxid->execute();
-                if($lstprodxid->rowCount() > 0){
-                    while($lpxi=$lstprodxid->fetch()){
+                if ($lstprodxid->rowCount() > 0) {
+                    while ($lpxi = $lstprodxid->fetch()) {
                         $stock_actual = $lpxi["stock_quantity"];
                     }
                     $new_stock = $stock_actual - $cant_prod;
-    
+
                     $update_producto = $pdo->prepare("UPDATE tbl_product SET stock_quantity=? WHERE id=?");
                     if ($update_producto) {
-                        $update_producto->execute([$new_stock,$id_prod]);
+                        $update_producto->execute([$new_stock, $id_prod]);
                     }
                 }
 

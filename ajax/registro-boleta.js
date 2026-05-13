@@ -14,7 +14,7 @@ $(document).ready(function(){
   $("#m_registro_boleta").attr("class","nav-link active");
   $("#m_boleta").attr("class","nav-link active");
   $("#m_boleta").parent().attr("class","nav-item has-treeview menu-open");
-  $(document).prop('title', 'Registro de Boleta - DuoLab Group');
+  $(document).prop('title', 'Registro de Boleta - CREAMOS');
 });
 
 $('select[name="facturacion_formpagotext"]').on("change", function() {
@@ -34,7 +34,7 @@ $('select[name="facturacion_formpagotext"]').on("change", function() {
   }
 });
 
-$.post("../../modules/facturacion/listar-boletas.php", function(data) {
+$.post("modules/facturacion/listar-boletas.php", function(data) {
   $('select[name="facturas_listado"]').empty();
   $('select[name="facturas_listado"]').select2({
     data: JSON.parse(data)
@@ -52,7 +52,7 @@ $('select[name="facturas_listado"]').on("change", function() {
 
 $('input[name="facturacion_valcliente"]').autocomplete({
   source: function(request, response) {
-    $.getJSON("../../modules/clientes/obtener-clientes.php", { cotiz_nomcliente: $('input[name="facturacion_valcliente"]').val() }, response);
+    $.getJSON("modules/clientes/obtener-clientes.php", { cotiz_nomcliente: $('input[name="facturacion_valcliente"]').val() }, response);
   },
   select: function (event, ui) {
     $(this).val(ui.item.label);
@@ -61,7 +61,7 @@ $('input[name="facturacion_valcliente"]').autocomplete({
     $('input[name="facturacion_clirefer"]').val("");
     if (ui.item.id != "" && ui.item.id != null) {
       $.post(
-        "../../modules/clientes/consultar-cliente.php",
+        "modules/clientes/consultar-cliente.php",
         { FILTER: ui.item.id },
         function(data) {
           var mydata = JSON.parse(data);
@@ -77,7 +77,7 @@ $('input[name="facturacion_valcliente"]').autocomplete({
 
 buscarCorrelativo();
 
-$.post("../../modules/usuarios/listar-usuarios-xtipo.php", function(data) {
+$.post("modules/usuarios/listar-usuarios-xtipo.php", function(data) {
   mydata = JSON.parse(data);
   data_users = mydata[0];
   user_id = mydata[1];
@@ -102,7 +102,7 @@ $('select[name="facturacion_usuario"]').on("change", function(){
   $('input[name="facturacion_usuarioid"]').val($(this).val());
 });
 
-$.post("../../modules/cotizaciones/listar-cotizaciones.php", function(data) {
+$.post("modules/cotizaciones/listar-cotizaciones.php", function(data) {
   $('select[name="facturacion_listadocotiz"]').empty();
   $('select[name="facturacion_listadocotiz"]').select2({
     data: JSON.parse(data)
@@ -110,7 +110,7 @@ $.post("../../modules/cotizaciones/listar-cotizaciones.php", function(data) {
 });
 
 $.post(
-  "../../modules/productos/listar-productos-xprov.php",
+  "modules/productos/listar-productos-xprov.php",
   { ESTADO: 1 },
   function(data) {
     $('select[name="facturacion_producto"]').empty();
@@ -131,7 +131,7 @@ $('select[name="facturacion_producto"]').on("change", function() {
   if (DATA_ID != "" && DATA_ID != null) {
     $('input[name="facturacion_prodcant"]').prop("disabled", false);
     $.post(
-      "../../modules/productos/consultar-productos.php",
+      "modules/productos/consultar-productos.php",
       { FILTER: DATA_ID, ESTADO: "1" },
       function(data) {
         var mydata = JSON.parse(data);
@@ -206,7 +206,7 @@ $('input[name="facturacion_prodcant"]').on("change", function() {
 });
 
 var tbl_prodfactura = $("#table-productsfactura").DataTable({
-  "language": {"url": "../../plugins/datatables/Spanish.json"}
+  "language": {"url": "plugins/datatables/Spanish.json"}
 });
 
 var total_temporal = 0;
@@ -330,7 +330,7 @@ $("#btn-select-factura").click(function() {
     });
 
     $.post(
-      "../../modules/facturacion/consultar-boleta.php",
+      "modules/facturacion/consultar-boleta.php",
       { FILTER: DATA_ID, ESTADO:"ALL" },
       function(data) {
         var data_json = JSON.parse(data);
@@ -422,7 +422,7 @@ $("#btn-select-factura").click(function() {
           codigo_idfac = data_json[0]["CODIGOID"];
 
           $.post(
-            "../../modules/facturacion/consultar-detalle-boleta.php",
+            "modules/facturacion/consultar-detalle-boleta.php",
             { FAC_ID: codigo_idfac },
             function(data) {
               $('select[name="facturacion_producto"]').val("");
@@ -487,7 +487,7 @@ $("#btn-select-cotizacion").click(function() {
 
     buscarCorrelativo();
 
-    $.post("../../modules/cotizaciones/consultar-cotizacion.php",
+    $.post("modules/cotizaciones/consultar-cotizacion.php",
       { FILTER: DATA_ID, ESTADO: "ALL" }, function(data) {
 
         var data_json = JSON.parse(data);
@@ -529,7 +529,7 @@ $("#btn-select-cotizacion").click(function() {
         total_temporal = data_json[0]["TOTAL_NET"];
         codigo_idcotiz = data_json[0]["CODIGOID"];
 
-        $.post("../../modules/cotizaciones/consultar-detalle-cotizacion.php",
+        $.post("modules/cotizaciones/consultar-detalle-cotizacion.php",
           { IDCOTIZ: codigo_idcotiz }, function(data) {
             $('select[name="facturacion_producto"]').val("");
             $('select[name="facturacion_producto"]').trigger("change");
@@ -683,7 +683,7 @@ $("#FRM_INSERT_FACTURA").submit(function(e) {
 
         postCambioEstado();
 
-        $.post("../../modules/facturacion/listar-boletas.php", function(data) {
+        $.post("modules/facturacion/listar-boletas.php", function(data) {
         $('select[name="facturas_listado"]').empty();
         $('select[name="facturas_listado"]').select2({
           data: JSON.parse(data)
@@ -715,7 +715,7 @@ $("#btn-anular-factura").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/facturacion/cambiar-estado-doc.php",
+          "modules/facturacion/cambiar-estado-doc.php",
           { TIPO_DOC: 'RECEIPT', ID_DOC: id_val, ESTADO_DOC : 2},
           function(data) {
             if (data == true) {
@@ -756,7 +756,7 @@ $("#btn-pendiente-factura").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/facturacion/cambiar-estado-doc.php",
+          "modules/facturacion/cambiar-estado-doc.php",
           { TIPO_DOC: 'RECEIPT', ID_DOC: id_val, ESTADO_DOC : 3},
           function(data) {
             if (data == true) {
@@ -797,7 +797,7 @@ $("#btn-cancelar-factura").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/facturacion/cambiar-estado-doc.php",
+          "modules/facturacion/cambiar-estado-doc.php",
           { TIPO_DOC: 'RECEIPT', ID_DOC: id_val, ESTADO_DOC : 4},
           function(data) {
             if (data == true) {
@@ -871,7 +871,7 @@ $(document).ready(function() {
 function buscarCorrelativo(){
   serieFactura = $('select[name="facturacion_series"]').val();
   
-  $.post("../../modules/facturacion/obtener-correlativo-doc.php",
+  $.post("modules/facturacion/obtener-correlativo-doc.php",
     { TIPO_DOC: "RECEIPT", SERIE: serieFactura }, function(data) {
     if(data != "" && data != null){
       $('input[name="facturacion_nro"]').val(data);
@@ -883,3 +883,4 @@ $( 'select[name="facturacion_series"]' ).change(function() {
   idDoc = $('input[name="id_factura"]').val();
   if (idDoc == "") buscarCorrelativo();
 });
+

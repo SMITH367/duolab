@@ -9,7 +9,7 @@ $(document).ready(function(){
   $("#m_compras").attr("class","nav-link active");
   $("#m_compras").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_compra_interna").attr("class","nav-link active");
-  $(document).prop('title', 'Compra Interna - DuoLab Group');
+  $(document).prop('title', 'Compra Interna - CREAMOS');
 });
 
 var porc_igv = 0.18;
@@ -31,14 +31,14 @@ $('select[name="orden_tipopagotext"]').on("change", function() {
   }
 });
 
-$.post("../../modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
+$.post("modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
   $('select[name="orden_listado"]').empty();
   $('select[name="orden_listado"]').select2({
     data: JSON.parse(data)
   });
 });
 
-$.post("../../modules/proveedores/listar-proveedores.php", function(data) {
+$.post("modules/proveedores/listar-proveedores.php", function(data) {
   $('select[name="orden_proveedor"]').empty();
   $('select[name="orden_proveedor"]').select2({
     data: JSON.parse(data)
@@ -48,7 +48,7 @@ $.post("../../modules/proveedores/listar-proveedores.php", function(data) {
 /*
 $('input[name="orden_cotizacion"]').autocomplete({
   source: function(request, response) {
-    $.getJSON("../../modules/cotizaciones/obtener-cotizaciones.php", { orden_cotizacion: $('input[name="orden_cotizacion"]').val() }, response);
+    $.getJSON("modules/cotizaciones/obtener-cotizaciones.php", { orden_cotizacion: $('input[name="orden_cotizacion"]').val() }, response);
   },
   select: function (event, ui) {
     $(this).val(ui.item.label);
@@ -72,7 +72,7 @@ $('select[name="orden_proveedor"]').on('change', function(){
     $('input[name="orden_porcdscto"]').val("0");
     $('input[name="orden_valordscto"]').val("0");
     $.post(
-      "../../modules/proveedores/consultar-proveedor.php",
+      "modules/proveedores/consultar-proveedor.php",
       { FILTER:provid },
       function(data) {
         var mydata = JSON.parse(data);
@@ -83,7 +83,7 @@ $('select[name="orden_proveedor"]').on('change', function(){
 
     /*$('input[name="orden_producto_val"]').autocomplete({  
       source: function(request, response) {
-        $.getJSON("../../modules/productos/obtener-productos.php", { 
+        $.getJSON("modules/productos/obtener-productos.php", { 
           orden_nomprod: $('input[name="orden_producto_val"]').val(), prov_id: provid 
         }, response);
       },
@@ -98,7 +98,7 @@ $('select[name="orden_proveedor"]').on('change', function(){
         if (ui.item.id != "" && ui.item.id != null) {
           $('input[name="orden_cantidad"]').prop("disabled", false);
           $.post(
-            "../../modules/productos/consultar-productos.php",
+            "modules/productos/consultar-productos.php",
             { FILTER: ui.item.id, ESTADO:'1' },
             function(data) {
               $('input[name="orden_porcdscto"]').prop("disabled", false);
@@ -136,7 +136,7 @@ var precioprod_temp = 0;
   if (DATA_ID != "" && DATA_ID != null) {
     $('input[name="orden_cantidad"]').prop("disabled", false);
     $.post(
-      "../../modules/productos/consultar-productos.php",
+      "modules/productos/consultar-productos.php",
       { FILTER: DATA_ID, ESTADO:'1' },
       function(data) {
         $('input[name="orden_porcdscto"]').prop("disabled", false);
@@ -202,7 +202,7 @@ $('input[name="orden_cantidad"]').on("change", function() {
 
 
 var tbl_prodordcompra = $("#table-ord-compras").DataTable({
-  "language": {"url": "../../plugins/datatables/Spanish.json"}
+  "language": {"url": "plugins/datatables/Spanish.json"}
 });
 
 var total_temporal = 0;
@@ -427,7 +427,7 @@ $("#btn-select-orden").click(function() {
       }
     });
     $.post(
-      "../../modules/compras/consultar-compra.php",
+      "modules/compras/consultar-compra.php",
       { TIPO_ORDEN:"COMPRA", FILTER: DATA_ID, ESTADO: "ALL" },
       function(data) {
         var data_json = JSON.parse(data);
@@ -475,7 +475,7 @@ $("#btn-select-orden").click(function() {
         codigo_idorden = data_json[0]["IDORDEN"];
         
         $.post(
-          "../../modules/compras/consultar-detalle-compra.php",
+          "modules/compras/consultar-detalle-compra.php",
           { IDORDEN: codigo_idorden },
           function(data) {
 
@@ -580,7 +580,7 @@ $("#FRM_INSERT_DETA_ORDCOMPRA").submit(function (e) {
             $("#btn-save-orden").prop("disabled", true);
             $("#btn-add-prodtporden").prop("disabled", true);
 
-            $.post("../../modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
+            $.post("modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
               $('select[name="orden_listado"]').empty();
               $('select[name="orden_listado"]').select2({
                 data: JSON.parse(data)
@@ -610,7 +610,7 @@ $("#FRM_INSERT_DETA_ORDCOMPRA").submit(function (e) {
                 $('input[name="orden_tipopago"]').prop("required",false);
                 tbl_prodordcompra.clear().draw();
 
-                $.post("../../modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
+                $.post("modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
                   $('select[name="orden_listado"]').empty();
                   $('select[name="orden_listado"]').select2({
                     data: JSON.parse(data)
@@ -638,7 +638,7 @@ $("#btn-delete-orden").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/compras/eliminar-compra.php",
+          "modules/compras/eliminar-compra.php",
           { ID_ORDER: id_val },
           function(data) {
             if (data == true) {
@@ -650,7 +650,7 @@ $("#btn-delete-orden").click(function() {
 
               $('select[name="orden_proveedor"]').trigger("change");     
               
-              $.post("../../modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
+              $.post("modules/compras/listar-compras.php", {orden_tipo:"COMPRA"}, function(data) {
                 $('select[name="orden_listado"]').empty();
                 $('select[name="orden_listado"]').select2({
                   data: JSON.parse(data)
@@ -698,3 +698,4 @@ $(document).ready(function() {
     },500);
   }
 });
+

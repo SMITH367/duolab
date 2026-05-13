@@ -2,10 +2,10 @@ $(document).ready(function(){
   $("#m_almacen").attr("class","nav-link active");
   $("#m_almacen").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_registro_producto").attr("class","nav-link active");
-  $(document).prop('title', 'Registro de Productos - DuoLab Group');
+  $(document).prop('title', 'Registro de Productos - CREAMOS');
 });
 
-$.post("../../modules/proveedores/listar-proveedores.php", function (data) {
+$.post("modules/proveedores/listar-proveedores.php", function (data) {
     $('select[name="producto_proveedor"]').empty();
     $('select[name="producto_proveedor"]').select2({
         data: JSON.parse(data)
@@ -71,5 +71,6 @@ $("#btn-new").click(function (e) {
 
 $("#btn-product-list").click(function (e) {
     e.preventDefault();
-    window.location.assign("../../views/productos/listado-producto");
+    window.location.assign("views/productos/listado-producto");
 })
+

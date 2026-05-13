@@ -2,14 +2,14 @@ $("#col-btn-delete-user").hide();
 
 $(document).ready(function(){
   $("#m_usuarios").attr("class","nav-link active");
-  $(document).prop('title', 'Usuarios - DuoLab Group');
+  $(document).prop('title', 'Usuarios - CREAMOS');
 });
 
 var tabla_usuarios = $('#table-usuarios');
 
 tabla_usuarios.dataTable({
     "ajax": {
-        "url": "../../modules/usuarios/consultar-usuario.php",
+        "url": "modules/usuarios/consultar-usuario.php",
         "type": "POST",
         "data": { "FILTER": "ALL" },
     },
@@ -38,11 +38,11 @@ tabla_usuarios.dataTable({
             }
         ],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
 
-$.post("../../modules/empleados/consultar-empleado.php", { FILTER: "SELECT_LIST" }, function (data) {
+$.post("modules/empleados/consultar-empleado.php", { FILTER: "SELECT_LIST" }, function (data) {
     $('select[name="usuario_empleado_id"]').select2({
         data: JSON.parse(data)
     })
@@ -134,7 +134,7 @@ tabla_usuarios.on('click', 'tr', function () {
             Swal.showLoading();
         }
     });
-    $.post("../../modules/usuarios/consultar-usuario.php", { FILTER: id_row }, function (data) {
+    $.post("modules/usuarios/consultar-usuario.php", { FILTER: id_row }, function (data) {
         var data_json = JSON.parse(data);
 
         $('input[name="usuario_codigo"]').focus();
@@ -180,7 +180,7 @@ $("#btn-delete-user").click(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.post("../../modules/usuarios/eliminar-usuario.php", { user_id: id_val }, function (data) {
+                $.post("modules/usuarios/eliminar-usuario.php", { user_id: id_val }, function (data) {
                     if (data == true) {
                         $("#FRM_INSERT_USUARIO").find("input, textarea, select").val("");
                         $("#FRM_INSERT_USUARIO").find("select").trigger("change");
@@ -207,3 +207,4 @@ $("#btn-delete-user").click(function () {
         })
     }
 })
+

@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#m_reportes").attr("class","nav-link active");
   $("#m_reportes").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_gastos_compras").attr("class","nav-link active");
-  $(document).prop('title', 'Gastos en Compras - DuoLab Group');
+  $(document).prop('title', 'Gastos en Compras - CREAMOS');
 });
 
 var current_year = new Date().getFullYear();
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
   function get_data_report(period_year) {
     $.post(
-      "../../modules/reportes/cargar-reporte-gastos-compras.php", { YEAR:period_year }, 
+      "modules/reportes/cargar-reporte-gastos-compras.php", { YEAR:period_year }, 
       function(data) {
         var data_report = JSON.parse(data);
 
@@ -179,3 +179,4 @@ $(document).ready(function() {
       .fadeIn(200);
   }
 });
+

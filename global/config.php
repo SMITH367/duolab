@@ -5,5 +5,6 @@ define("SERVER","localhost");
 define("DB_USER","root");
 define("DB_PASSWORD","");
 define("DB","db_duolab");
+define("BASE_URL", "/duolab");
 
 ?>

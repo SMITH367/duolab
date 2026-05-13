@@ -1,6 +1,6 @@
 $("#btn-delete-product").hide();
 
-$.post("../../modules/proveedores/listar-proveedores.php", function (data) {
+$.post("modules/proveedores/listar-proveedores.php", function (data) {
     $('select[name="producto_proveedor"]').empty();
     $('select[name="producto_proveedor"]').select2({
         data: JSON.parse(data)
@@ -11,7 +11,7 @@ var tabla_productos = $('#table-productos');
 
 tabla_productos.dataTable({
     "ajax": {
-        "url": "../../modules/productos/consultar-productos.php",
+        "url": "modules/productos/consultar-productos.php",
         "type": "POST",
         "data": { "FILTER": "ALL", "ESTADO": "ALL" },
     },
@@ -30,7 +30,7 @@ tabla_productos.dataTable({
     ],
     "order": [[0, "DESC"]],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
 
@@ -99,7 +99,7 @@ tabla_productos.on('click', 'tr', function () {
             Swal.showLoading();
         }
     });
-    $.post("../../modules/productos/consultar-productos.php", { FILTER: id_row, ESTADO: 'ALL' }, function (data) {
+    $.post("modules/productos/consultar-productos.php", { FILTER: id_row, ESTADO: 'ALL' }, function (data) {
         var data_json = JSON.parse(data);        
         $('#btn-delete-product').attr("js-id", data_json[0]["CODIGO"]);
         $('input[name="producto_id"]').val(data_json[0]["CODIGO"]);
@@ -144,7 +144,7 @@ $("#btn-delete-product").click(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.post("../../modules/productos/eliminar-producto.php", { producto_id: id_val }, function (data) {
+                $.post("modules/productos/eliminar-producto.php", { producto_id: id_val }, function (data) {
                     if (data == true) {
                         $('#table-productos').DataTable().ajax.reload();
 
@@ -166,3 +166,4 @@ $("#btn-new").click(function (e) {
     e.preventDefault();
     location.reload();
 })
+

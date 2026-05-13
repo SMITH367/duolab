@@ -6,7 +6,7 @@ $(document).ready(function(){
   $("#m_reportes").attr("class","nav-link active");
   $("#m_reportes").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_score_ventas").attr("class","nav-link active");
-  $(document).prop('title', 'Score de Ventas - DuoLab Group');
+  $(document).prop('title', 'Score de Ventas - CREAMOS');
 });
 
 var year_actual = parseInt(moment().format('YYYY'));
@@ -146,7 +146,7 @@ $(document).ready(function() {
 
     $('input[name="reporte_vendedor"]').autocomplete({
         source: function(request, response) {
-          $.getJSON("../../modules/usuarios/obtener-usuarios.php", { NOM_VEND: $('input[name="reporte_vendedor"]').val() }, response);
+          $.getJSON("modules/usuarios/obtener-usuarios.php", { NOM_VEND: $('input[name="reporte_vendedor"]').val() }, response);
         },
         select: function (event, ui) {
           $(this).val(ui.item.label);
@@ -155,7 +155,7 @@ $(document).ready(function() {
     
     function get_data_report(nom_vend,period_val,period_mes,period_year) {
     $.post(
-      "../../modules/reportes/cargar-reporte-ventas-x-vendedor.php", { VENDEDOR:nom_vend, PERIODO:period_val, MONTH:period_mes, YEAR:period_year }, 
+      "modules/reportes/cargar-reporte-ventas-x-vendedor.php", { VENDEDOR:nom_vend, PERIODO:period_val, MONTH:period_mes, YEAR:period_year }, 
       function(data) {
         var data_report = JSON.parse(data);
 
@@ -287,3 +287,4 @@ $(document).ready(function() {
       .fadeIn(200);
   }
 });
+

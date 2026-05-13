@@ -7,7 +7,7 @@ $(document).ready(function(){
   $("#m_ordenes").attr("class","nav-link active");
   $("#m_ordenes").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_resumen_orden").attr("class","nav-link active");
-  $(document).prop('title', 'Resumen de Órdenes - DuoLab Group');
+  $(document).prop('title', 'Resumen de Órdenes - CREAMOS');
 });
 
 var tbl_ordenes = $("#table-ordenes").DataTable({
@@ -31,14 +31,14 @@ var tbl_ordenes = $("#table-ordenes").DataTable({
                 text: '<i class="fa fa-print"></i>&nbsp;&nbsp;Imprimir'
             } 
         ],
-  language: { url: "../../plugins/datatables/Spanish.json" }
+  language: { url: "plugins/datatables/Spanish.json" }
 });
 
 tbl_ordenes.columns([0,6]).visible(false);
 
 $('input[name="orden_numero"]').autocomplete({
     source: function(request, response) {
-      $.getJSON("../../modules/ordenes/obtener-ordenes.php", { ORDEN_NRO: $('input[name="orden_numero"]').val() }, response);
+      $.getJSON("modules/ordenes/obtener-ordenes.php", { ORDEN_NRO: $('input[name="orden_numero"]').val() }, response);
     },
     select: function (event, ui) {
       $(this).val(ui.item.label);
@@ -47,7 +47,7 @@ $('input[name="orden_numero"]').autocomplete({
 
 $('input[name="orden_proveedor"]').autocomplete({  
     source: function(request, response) {
-      $.getJSON("../../modules/proveedores/obtener-proveedores.php", { 
+      $.getJSON("modules/proveedores/obtener-proveedores.php", { 
         NOM_PROV: $('input[name="orden_proveedor"]').val()
       }, response);
     },
@@ -107,7 +107,7 @@ $('input[name="orden_fecinic"]').on("change", function() {
 
 $(document).ready(function() {
     $.post(
-      "../../modules/ordenes/consultar-orden.php",
+      "modules/ordenes/consultar-orden.php",
       { FILTER: "ALL", ESTADO: "ALL"},
       function(data) {
         tbl_ordenes.clear().draw();
@@ -150,7 +150,7 @@ $('select[name="ordenes_tipo"]').on("change", function() {
     $("#btn-nuevo").prop("disabled",false);
     
     $.post(
-      "../../modules/ordenes/consultar-orden.php",
+      "modules/ordenes/consultar-orden.php",
       { FILTER: "ALL", ESTADO: "ALL", TIPO_ORDEN: ORD_TIPO },
       function(data) {
         tbl_ordenes.clear().draw();
@@ -186,10 +186,10 @@ $("#btn-nuevo").click(function(){
     if(tipo_ord != ""){
         switch (tipo_ord) {
             case "COMPRA":
-                location.href = "orden-de-compra";
+                location.href = "ordenes/orden-de-compra";
             break;
             case "SERVICIO":
-                location.href = "orden-de-servicio";
+                location.href = "ordenes/orden-de-servicio";
             break;
         }
     }
@@ -211,7 +211,7 @@ $("#btn-buscar").click(function(){
             }
         });
         $.post(
-            "../../modules/ordenes/filtrar-ordenes.php",
+            "modules/ordenes/filtrar-ordenes.php",
             { orden_nroo:orden_nroo, orden_prov:orden_prov, orden_fini:orden_fini, orden_ffin:orden_ffin  },
             function(data) {
                 tbl_ordenes.clear().draw();
@@ -251,20 +251,20 @@ $("#table-ordenes").contextMenu({
         case "edit":
             crear_cookie('COOKIE_ID_ORDEN', row_id, 1, "/");
             if(row_tipo == 1){
-                location.href = "orden-de-compra";
+                location.href = "ordenes/orden-de-compra";
             } else {
-                location.href = "orden-de-servicio";
+                location.href = "ordenes/orden-de-servicio";
             }
             break;
         case "delete":
             $.post(
-                "../../modules/ordenes/anular-orden.php",
+                "modules/ordenes/anular-orden.php",
                 { ID_ORDEN:row_id },
                 function(data) {
                     if(data == true){
                         TIPO_ORDEN = row_tipo==1?"COMPRA":"SERVICIO";
                         $.post(
-                            "../../modules/ordenes/consultar-orden.php",
+                            "modules/ordenes/consultar-orden.php",
                             { FILTER: "ALL", ESTADO: "ALL", TIPO_ORDEN: TIPO_ORDEN },
                             function(data) {
                               tbl_ordenes.clear().draw();
@@ -318,3 +318,5 @@ $("#btn-reset").click(function (e) {
     e.preventDefault();
     location.reload();
 });
+
+

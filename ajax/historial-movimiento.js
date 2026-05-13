@@ -2,14 +2,14 @@ $(document).ready(function(){
   $("#m_almacen").attr("class","nav-link active");
   $("#m_almacen").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_historial_movimiento").attr("class","nav-link active");
-  $(document).prop('title', 'Historial de Movimientos - DuoLab Group');
+  $(document).prop('title', 'Historial de Movimientos - CREAMOS');
 });
 
 var tabla_movimientos = $('#table-movimientos');
 
 tabla_movimientos.DataTable({
     "ajax": {
-        "url": "../../modules/productos/consultar-movimientos.php",
+        "url": "modules/productos/consultar-movimientos.php",
         "type": "POST",
     },
     "columns": [
@@ -33,7 +33,7 @@ tabla_movimientos.DataTable({
             {
                 text: '<i class="fa fa-plus-square fa-1x"></i>&nbsp;&nbsp;Registrar movimiento',
                 action: function ( e, dt, node, config ) {
-                    window.location.assign("../../views/productos/actualizar-stock");
+                    window.location.assign("views/productos/actualizar-stock");
                 }
             },
             {
@@ -50,6 +50,7 @@ tabla_movimientos.DataTable({
             }
         ],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
+

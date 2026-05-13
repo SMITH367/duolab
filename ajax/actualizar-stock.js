@@ -2,11 +2,11 @@ $(document).ready(function(){
   $("#m_almacen").attr("class","nav-link active");
   $("#m_almacen").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_actualizar_stock").attr("class","nav-link active");
-  $(document).prop('title', 'Actualizar Stock - DuoLab Group');
+  $(document).prop('title', 'Actualizar Stock - CREAMOS');
 });
 
 $.post(
-    "../../modules/productos/listar-productos-xprov.php",
+    "modules/productos/listar-productos-xprov.php",
     { ESTADO: "ALL"},
     function (data) {
     $('select[name="mov_prod_code"]').empty();
@@ -16,7 +16,7 @@ $.post(
 });
 
 $.post(
-    "../../modules/proveedores/listar-proveedores.php",
+    "modules/proveedores/listar-proveedores.php",
     function (data) {
     $('select[name="mov_prov"]').empty();
     $('select[name="mov_prov"]').select2({
@@ -107,5 +107,6 @@ $("#btn-new").click(function (e) {
 
 $("#btn-product-list").click(function (e) {
     e.preventDefault();
-    window.location.assign("../../views/productos/listado-producto");
+    window.location.assign("views/productos/listado-producto");
 })
+

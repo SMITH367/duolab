@@ -2,14 +2,14 @@ $("#col-btn-delete-employee").hide();
 
 $(document).ready(function(){
   $("#m_empleados").attr("class","nav-link active");
-  $(document).prop('title', 'Empleados - DuoLab Group');
+  $(document).prop('title', 'Empleados - CREAMOS');
 });
 
 var tabla_empleados = $('#table-empleados');
 
 tabla_empleados.dataTable({
     "ajax": {
-        "url": "../../modules/empleados/consultar-empleado.php",
+        "url": "modules/empleados/consultar-empleado.php",
         "type": "POST",
         "data": { "FILTER": "ALL" },
     },
@@ -40,7 +40,7 @@ tabla_empleados.dataTable({
                 }
             ],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
 
@@ -108,7 +108,7 @@ tabla_empleados.on('click', 'tr', function () {
             Swal.showLoading();
         }
     });
-    $.post("../../modules/empleados/consultar-empleado.php", { FILTER: id_row }, function (data) {
+    $.post("modules/empleados/consultar-empleado.php", { FILTER: id_row }, function (data) {
         var data_json = JSON.parse(data);
         $('input[name="empleado_codigo"]').focus();
         $('#btn-delete-employee').attr("js-id", data_json[0]["CODIGO"]);
@@ -162,7 +162,7 @@ $("#btn-delete-employee").click(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.post("../../modules/empleados/eliminar-empleado.php", { empleado_id: id_val }, function (data) {
+                $.post("modules/empleados/eliminar-empleado.php", { empleado_id: id_val }, function (data) {
                     if (data == true) {
                         $("#FRM_INSERT_EMPLEADO").find("input, textarea").val("");
                         $('#table-empleados').DataTable().ajax.reload();
@@ -177,3 +177,4 @@ $("#btn-delete-employee").click(function () {
         })
     }
 })
+

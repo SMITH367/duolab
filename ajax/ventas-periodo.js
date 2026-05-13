@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#m_reportes").attr("class","nav-link active");
   $("#m_reportes").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_ventas_periodo").attr("class","nav-link active");
-  $(document).prop('title', 'Ventas por Periodo - DuoLab Group');
+  $(document).prop('title', 'Ventas por Periodo - CREAMOS');
 });
 
 var current_year = new Date().getFullYear();
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
   function get_data_report(period_year) {
     $.post(
-      "../../modules/reportes/cargar-reporte-ventas-x-periodo.php", { YEAR:period_year }, 
+      "modules/reportes/cargar-reporte-ventas-x-periodo.php", { YEAR:period_year }, 
       function(data) {
         var data_report = JSON.parse(data);
 
@@ -179,3 +179,4 @@ $(document).ready(function() {
       .fadeIn(200);
   }
 });
+

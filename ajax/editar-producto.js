@@ -17,22 +17,22 @@ $(document).ready(function(){
   $("#m_almacen").attr("class","nav-link active");
   $("#m_almacen").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_registro_producto").attr("class","nav-link active");
-  $(document).prop('title', 'Editar Producto - DuoLab Group');
+  $(document).prop('title', 'Editar Producto - CREAMOS');
 });
 
 $(document).ready(function() {
     var product_id = getUrlParameter('id');
 
     if(product_id == "" || product_id == null){
-        window.location.replace("../../views/productos/listado-producto");
+        window.location.replace("views/productos/listado-producto");
         return;
     }
 
-    $.post("../../modules/productos/consultar-productos.php", { FILTER: product_id, ESTADO: 'ALL' }, function (data) {
+    $.post("modules/productos/consultar-productos.php", { FILTER: product_id, ESTADO: 'ALL' }, function (data) {
         var data_json = JSON.parse(data);
 
         if(data_json[0] == null){
-            window.location.replace("../../views/productos/listado-producto");
+            window.location.replace("views/productos/listado-producto");
             return;
         }
 
@@ -72,7 +72,7 @@ $(document).ready(function() {
 
 });
 
-$.post("../../modules/proveedores/listar-proveedores.php", function (data) {
+$.post("modules/proveedores/listar-proveedores.php", function (data) {
     $('select[name="producto_proveedor"]').empty();
     $('select[name="producto_proveedor"]').select2({
         data: JSON.parse(data)
@@ -117,7 +117,7 @@ $("#FRM_INSERT_PRODUCTO").submit(function (e) {
                 Swal.close();
                 $('#table-productos').DataTable().ajax.reload();
             } else if (data == "OK_UPDATE") {
-                window.location.replace("../../views/productos/listado-producto");
+                window.location.replace("views/productos/listado-producto");
 
                 $.Notification.notify("success", "bottom-right", "Producto actualizado", "Datos actualizados");
                 Swal.close();
@@ -138,9 +138,9 @@ $("#btn-delete-product").click(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.post("../../modules/productos/eliminar-producto.php", { producto_id: id_val }, function (data) {
+                $.post("modules/productos/eliminar-producto.php", { producto_id: id_val }, function (data) {
                     if (data == true) {
-                        window.location.replace("../../views/productos/listado-producto");
+                        window.location.replace("views/productos/listado-producto");
 
                         $.Notification.notify("success", "bottom-right", "Producto eliminado", "Información borrada correctamente");
                     }
@@ -152,5 +152,6 @@ $("#btn-delete-product").click(function () {
 
 $("#btn-cancel").click(function (e) {
     e.preventDefault();
-    window.location.assign("../../views/productos/listado-producto");
+    window.location.assign("views/productos/listado-producto");
 });
+

@@ -33,8 +33,8 @@
             </div>
             <div class="card-body">
               <div class="text-center">
-                <img class="m-2" src="<?php echo $functions->direct_sistema(); ?>/img/duolabgroup_logo.png" alt="" width="225" height="225">
-                <!--<span class="brand-text font-weight-dark text-cyan text-xl"><strong>DUOLAB</strong> GROUP</span>-->
+                <img class="m-2" src="<?php echo $functions->direct_sistema(); ?>/img/creamos_logo.png" alt="" width="225" height="225">
+                <!--<span class="brand-text font-weight-dark text-cyan text-xl"><strong>CREAMOS</strong> GROUP</span>-->
               </div>
             </div>
 

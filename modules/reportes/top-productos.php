@@ -92,4 +92,4 @@ if ($rowsNumber > 0) {
 	}
 }
 
-$pdf->Output("I", $reportTitle . ".pdf", true);
+$pdf->Output("I", '"' . $reportTitle . '.pdf"', true);

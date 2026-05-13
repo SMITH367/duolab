@@ -2,10 +2,12 @@
 <html lang="es" data-bs-theme="auto">
 <head>
   <meta charset="utf-8">
+  <?php $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://"; ?>
+  <base href="<?php echo $protocol . $_SERVER['HTTP_HOST'] . $functions->direct_sistema() . '/'; ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Christian Cano">
 
-  <title>DuoLab</title>
+  <title>CREAMOS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -20,26 +22,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
 
   <!-- Datatables -->
-  <link rel="stylesheet" href="<?php echo $functions->direct_sistema(); ?>/plugins/datatables-bs4/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/buttons.dataTables.min.css">
-  <link rel="stylesheet" href="<?php echo $functions->direct_sistema(); ?>/plugins/datatables/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="plugins/datatables/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="plugins/datatables/buttons.bootstrap4.min.css">
  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.css">
-  <link rel="stylesheet" href="<?php echo $functions->direct_sistema(); ?>/plugins/notifyjs/dist/notify.css">
-  <link rel="stylesheet" href="<?php echo $functions->direct_sistema(); ?>/css/style-duolab.css">
+  <link rel="stylesheet" href="plugins/notifyjs/dist/notify.css">
+  <link rel="stylesheet" href="css/style-CREAMOS.css">
 
   <!-- jQuery UI -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <!-- Context Menu -->
-  <link rel="stylesheet" href="<?php echo $functions->direct_sistema(); ?>/plugins/context-menu/jquery.contextMenu.css">
+  <link rel="stylesheet" href="plugins/context-menu/jquery.contextMenu.css">
 
   <!-- AdminLTE Template Style -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-rc3/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 
   <!-- Favicons -->
-  <link rel="icon" href="<?php echo $functions->direct_sistema(); ?>/img/favicons/chemistry-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="<?php echo $functions->direct_sistema(); ?>/img/favicons/chemistry-16x16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="img/favicons/chemistry-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="img/favicons/chemistry-16x16.png" sizes="16x16" type="image/png">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -56,22 +58,22 @@
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo $functions->direct_paginas()."home" ?>" class="nav-link">Inicio</a>
+        <a href="home" class="nav-link">Inicio</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo $functions->direct_paginas()."clientes/registro-cliente" ?>" class="nav-link">Clientes</a>
+        <a href="clientes/registro-cliente" class="nav-link">Clientes</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo $functions->direct_paginas()."productos/listado-producto" ?>" class="nav-link">Listado de Productos</a>
+        <a href="productos/listado-producto" class="nav-link">Listado de Productos</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo $functions->direct_paginas()."facturacion/registro-factura" ?>" class="nav-link">Factura</a>
+        <a href="facturacion/registro-factura" class="nav-link">Factura</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo $functions->direct_paginas()."facturacion/registro-boleta" ?>" class="nav-link">Boleta</a>
+        <a href="facturacion/registro-boleta" class="nav-link">Boleta</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo $functions->direct_paginas()."facturacion/registro-nota-credito" ?>" class="nav-link">Nota de Crédito</a>
+        <a href="facturacion/registro-nota-credito" class="nav-link">Nota de Crédito</a>
       </li>
 
     </ul>
@@ -83,7 +85,7 @@
       <li class="nav-item dropdown user-menu">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
           <?php
-            $user_avatar_url = $functions->direct_sistema() . "/img/avatars/" . $_SESSION['loggedInUser']['PHOTO_URL'];
+            $user_avatar_url = "img/avatars/" . $_SESSION['loggedInUser']['PHOTO_URL'];
           ?>
           <img src="<?php echo $user_avatar_url ?>" class="user-image img-circle elevation-2 bg-default" alt="User Image">
           <span class="d-none d-md-inline"><?php echo $_SESSION['loggedInUser']['EMPLOYEE_NAME']; ?></span>
@@ -120,7 +122,7 @@
           </a>
           <div class="dropdown-divider"></div>
           <!-- Menu Footer -->
-          <a id="logout-btn" href="<?php echo $functions->direct_sistema(); ?>/modules/end_session.php" class="dropdown-item dropdown-footer">
+          <a id="logout-btn" href="modules/end_session.php" class="dropdown-item dropdown-footer">
             <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
           </a>
         </div>

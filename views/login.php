@@ -12,32 +12,34 @@ if (isset($_SESSION['loggedInUser'])) {
 <html lang="es" data-bs-theme="auto">
 <head>
   <meta charset="utf-8">
+  <?php $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://"; ?>
+  <base href="<?php echo $protocol . $_SERVER['HTTP_HOST'] . $functions->direct_sistema() . '/'; ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Empresa peruana dedicada a la IMPORTACIÓN, COMERCIALIZACIÓN Y DISTRIBUCIÓN de productos del rubro cosmético y farmacéutico.">
   <meta name="author" content="Christian Cano">
 
-  <title>DuoLab</title>
+  <title>CREAMOS</title>
   
   <meta property="og:type" content="website">
-  <meta property="og:title" content="DuoLab">
-  <meta property="og:site" content="DuoLab">
-  <meta property="og:url" content="http://localhost/duolab">
-  <meta property="og:description" content="Bienvenido a DuoLab. Inicie sesión para continuar.">
-  <meta property="og:image" content="../img/duolabgroup_logo.png">
+  <meta property="og:title" content="CREAMOS">
+  <meta property="og:site" content="CREAMOS">
+  <meta property="og:url" content="<?php echo $functions->direct_sistema(); ?>">
+  <meta property="og:description" content="Bienvenido a CREAMOS. Inicie sesión para continuar.">
+  <meta property="og:image" content="<?php echo $functions->direct_sistema(); ?>/img/creamos_logo.png">
 
-  <meta property="twitter:title" content="DuoLab">
-  <meta property="twitter:description" content="Bienvenido a DuoLab. Inicie sesión para continuar.">
-  <meta name="twitter:image" content="./img/duolabgroup_logo.png">
+  <meta property="twitter:title" content="CREAMOS">
+  <meta property="twitter:description" content="Bienvenido a CREAMOS. Inicie sesión para continuar.">
+  <meta name="twitter:image" content="<?php echo $functions->direct_sistema(); ?>/img/creamos_logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <!--<meta name="twitter:site" content="@duolab">-->
+  <!--<meta name="twitter:site" content="@CREAMOS">-->
 
-  <link rel="icon" href="./img/favicons/chemistry-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="./img/favicons/chemistry-16x16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="img/favicons/chemistry-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="img/favicons/chemistry-16x16.png" sizes="16x16" type="image/png">
   
-  <script src="./js/color-modes.js"></script>
+  <script src="js/color-modes.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
   <meta name="theme-color" content="#712cf9">
-  <link href="./css/login.css" rel="stylesheet">
+  <link href="css/login.css" rel="stylesheet">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -108,7 +110,7 @@ if (isset($_SESSION['loggedInUser'])) {
   <main class="form-signin w-100 m-auto">
     <form id="login-form">
       <div class="text-center">
-        <img class="mb-4" src="./img/duolabgroup_logo_alt.png" width="225" height="225">
+        <img class="mb-4" src="img/creamos_logo_alt.png" width="225" height="225">
       </div>
       <h1 class="h3 mb-3 fw-normal">Ingrese sus credenciales</h1>
       
@@ -130,7 +132,7 @@ if (isset($_SESSION['loggedInUser'])) {
       </div>
       -->
       <button class="btn btn-primary w-100 py-2" type="submit" id="btnLogin">Ingresar</button>
-      <p class="mt-5 mb-3 text-body-secondary text-center">&copy; 2025 DuoLab</p>
+      <p class="mt-5 mb-3 text-body-secondary text-center">&copy; 2025 CREAMOS</p>
     </form>
   </main>
 
@@ -160,7 +162,7 @@ if (isset($_SESSION['loggedInUser'])) {
       "hideMethod": "fadeOut"
       }
   </script>
-  <script src="./ajax/login.js"></script>
+  <script src="ajax/login.js"></script>
 
   </body>
 </html>

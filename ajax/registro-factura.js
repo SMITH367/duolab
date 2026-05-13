@@ -1,6 +1,7 @@
 $("#col-btn-anular-factura").hide();
 $("#col-btn-pendiente-factura").hide();
 $("#col-btn-cancelar-factura").hide();
+$("#col-btn-cuenta-cobro").hide();
 
 $("#btn-save-facturaprod").prop("disabled", true);
 $("#btn-add-prodtofactura").prop("disabled", true);
@@ -14,7 +15,7 @@ $(document).ready(function(){
   $("#m_registro_factura").attr("class","nav-link active");
   $("#m_facturacion").attr("class","nav-link active");
   $("#m_facturacion").parent().attr("class","nav-item has-treeview menu-open");
-  $(document).prop('title', 'Registro de Factura - DuoLab Group');
+  $(document).prop('title', 'Registro de Factura - CREAMOS');
 });
 
 $('select[name="facturacion_formpagotext"]').on("change", function() {
@@ -34,7 +35,7 @@ $('select[name="facturacion_formpagotext"]').on("change", function() {
   }
 });
 
-$.post("../../modules/facturacion/listar-facturas.php", function(data) {
+$.post("modules/facturacion/listar-facturas.php", function(data) {
   $('select[name="facturas_listado"]').empty();
   $('select[name="facturas_listado"]').select2({
     data: JSON.parse(data)
@@ -52,7 +53,7 @@ $('select[name="facturas_listado"]').on("change", function() {
 
 $('input[name="facturacion_valcliente"]').autocomplete({
   source: function(request, response) {
-    $.getJSON("../../modules/clientes/obtener-clientes.php", { cotiz_nomcliente: $('input[name="facturacion_valcliente"]').val() }, response);
+    $.getJSON("modules/clientes/obtener-clientes.php", { cotiz_nomcliente: $('input[name="facturacion_valcliente"]').val() }, response);
   },
   select: function (event, ui) {
     $(this).val(ui.item.label);
@@ -61,7 +62,7 @@ $('input[name="facturacion_valcliente"]').autocomplete({
     $('input[name="facturacion_clirefer"]').val("");
     if (ui.item.id != "" && ui.item.id != null) {
       $.post(
-        "../../modules/clientes/consultar-cliente.php",
+        "modules/clientes/consultar-cliente.php",
         { FILTER: ui.item.id },
         function(data) {
           var mydata = JSON.parse(data);
@@ -77,7 +78,7 @@ $('input[name="facturacion_valcliente"]').autocomplete({
 
 buscarCorrelativo();
 
-$.post("../../modules/usuarios/listar-usuarios-xtipo.php", function(data) {
+$.post("modules/usuarios/listar-usuarios-xtipo.php", function(data) {
   mydata = JSON.parse(data);
   data_users = mydata[0];
   user_id = mydata[1];
@@ -102,7 +103,7 @@ $('select[name="facturacion_usuario"]').on("change", function(){
   $('input[name="facturacion_usuarioid"]').val($(this).val());
 });
 
-$.post("../../modules/cotizaciones/listar-cotizaciones.php", function(data) {
+$.post("modules/cotizaciones/listar-cotizaciones.php", function(data) {
   $('select[name="facturacion_listadocotiz"]').empty();
   $('select[name="facturacion_listadocotiz"]').select2({
     data: JSON.parse(data)
@@ -110,7 +111,7 @@ $.post("../../modules/cotizaciones/listar-cotizaciones.php", function(data) {
 });
 
 $.post(
-  "../../modules/productos/listar-productos-xprov.php",
+  "modules/productos/listar-productos-xprov.php",
   { ESTADO: 1 },
   function(data) {
     $('select[name="facturacion_producto"]').empty();
@@ -131,7 +132,7 @@ $('select[name="facturacion_producto"]').on("change", function() {
   if (DATA_ID != "" && DATA_ID != null) {
     $('input[name="facturacion_prodcant"]').prop("disabled", false);
     $.post(
-      "../../modules/productos/consultar-productos.php",
+      "modules/productos/consultar-productos.php",
       { FILTER: DATA_ID, ESTADO: "1" },
       function(data) {
         var mydata = JSON.parse(data);
@@ -206,7 +207,7 @@ $('input[name="facturacion_prodcant"]').on("change", function() {
 });
 
 var tbl_prodfactura = $("#table-productsfactura").DataTable({
-  "language": {"url": "../../plugins/datatables/Spanish.json"}
+  "language": {"url": "plugins/datatables/Spanish.json"}
 });
 
 var total_temporal = 0;
@@ -264,7 +265,7 @@ $("#btn-add-prodtofactura").click(function() {
         : 0;
     importe_totactual = parseFloat(opergrab);
     importe_totactual += importe_actual;
-    new_igv = importe_totactual * 0.18;
+    new_igv = importe_totactual * 0.19;
     new_total = importe_totactual + new_igv;
 
     total_temporal = new_total;
@@ -330,7 +331,7 @@ $("#btn-select-factura").click(function() {
     });
 
     $.post(
-      "../../modules/facturacion/consultar-factura.php",
+      "modules/facturacion/consultar-factura.php",
       { FILTER: DATA_ID, ESTADO:"ALL" },
       function(data) {
         var data_json = JSON.parse(data);
@@ -422,7 +423,7 @@ $("#btn-select-factura").click(function() {
           codigo_idfac = data_json[0]["CODIGOID"];
 
           $.post(
-            "../../modules/facturacion/consultar-detalle-factura.php",
+            "modules/facturacion/consultar-detalle-factura.php",
             { FAC_ID: codigo_idfac },
             function(data) {
               $('select[name="facturacion_producto"]').val("");
@@ -462,6 +463,8 @@ $("#btn-select-factura").click(function() {
         $("#col-btn-anular-factura").show("fast");        
         $("#col-btn-pendiente-factura").show("fast");        
         $("#col-btn-cancelar-factura").show("fast");
+        $("#col-btn-print-factura").show("fast");
+        $("#col-btn-cuenta-cobro").show("fast");
       }
     );
 
@@ -487,7 +490,7 @@ $("#btn-select-cotizacion").click(function() {
 
     buscarCorrelativo();
 
-    $.post("../../modules/cotizaciones/consultar-cotizacion.php",
+    $.post("modules/cotizaciones/consultar-cotizacion.php",
       { FILTER: DATA_ID, ESTADO: "ALL" }, function(data) {
 
         var data_json = JSON.parse(data);
@@ -529,7 +532,7 @@ $("#btn-select-cotizacion").click(function() {
         total_temporal = data_json[0]["TOTAL_NET"];
         codigo_idcotiz = data_json[0]["CODIGOID"];
 
-        $.post("../../modules/cotizaciones/consultar-detalle-cotizacion.php",
+        $.post("modules/cotizaciones/consultar-detalle-cotizacion.php",
           { IDCOTIZ: codigo_idcotiz }, function(data) {
             $('select[name="facturacion_producto"]').val("");
             $('select[name="facturacion_producto"]').trigger("change");
@@ -671,26 +674,42 @@ $("#FRM_INSERT_FACTURA").submit(function(e) {
         );
         Swal.close();
 
-      } else if (data == "OK_INSERT") {
-        $('input[name="facturacion_valcliente"]').val("");
-        $('input[name="facturacion_fecha"]').focus();
-        $.Notification.notify(
-          "success",
-          "bottom-right",
-          "Factura guardada",
-          "Datos almacenados"
-        );
+        } else {
+          var res_data = data.split("|");
+          var status_res = res_data[0].trim();
+          var id_res = (res_data[1] || "").trim();
 
-        postCambioEstado();
-        
-        $.post("../../modules/facturacion/listar-facturas.php", function(data) {
-        $('select[name="facturas_listado"]').empty();
-        $('select[name="facturas_listado"]').select2({
-          data: JSON.parse(data)
+          if (status_res == "OK_INSERT") {
+          $('input[name="facturacion_valcliente"]').val("");
+          $('input[name="facturacion_fecha"]').focus();
+          $.Notification.notify(
+            "success",
+            "bottom-right",
+            "Factura guardada",
+            "Datos almacenados"
+          );
+
+          $('input[name="id_factura"]').val(id_res);
+          $("#btn-anular-factura").attr("js-id", id_res);
+          $("#btn-pendiente-factura").attr("js-id", id_res);
+          $("#btn-cancelar-factura").attr("js-id", id_res);
+
+          $("#col-btn-save-facturaprod").hide("fast");
+          $("#col-btn-anular-factura").show("fast");
+          $("#col-btn-pendiente-factura").show("fast");
+          $("#col-btn-cancelar-factura").show("fast");
+          $("#col-btn-print-factura").show("fast");
+          $("#col-btn-cuenta-cobro").show("fast");
+
+          $.post("modules/facturacion/listar-facturas.php", function(data) {
+            $('select[name="facturas_listado"]').empty();
+            $('select[name="facturas_listado"]').select2({
+              data: JSON.parse(data)
+            });
           });
-        });
 
-        Swal.close();
+          Swal.close();
+        }
       }
     }
   });
@@ -715,7 +734,7 @@ $("#btn-anular-factura").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/facturacion/cambiar-estado-doc.php",
+          "modules/facturacion/cambiar-estado-doc.php",
           { TIPO_DOC: 'INVOICE', ID_DOC: id_val, ESTADO_DOC : 2},
           function(data) {
             if (data == true) {
@@ -756,7 +775,7 @@ $("#btn-pendiente-factura").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/facturacion/cambiar-estado-doc.php",
+          "modules/facturacion/cambiar-estado-doc.php",
           { TIPO_DOC: 'INVOICE', ID_DOC: id_val, ESTADO_DOC : 3},
           function(data) {
             if (data == true) {
@@ -797,7 +816,7 @@ $("#btn-cancelar-factura").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/facturacion/cambiar-estado-doc.php",
+          "modules/facturacion/cambiar-estado-doc.php",
           { TIPO_DOC: 'INVOICE', ID_DOC: id_val, ESTADO_DOC : 4},
           function(data) {
             if (data == true) {
@@ -824,6 +843,23 @@ $("#btn-cancelar-factura").click(function() {
   }
 });
 
+$("#btn-print-factura").click(function() {
+  var id = $('input[name="id_factura"]').val();
+  if (id != "") {
+    window.open("modules/reportes/imprimir-factura.php?id=" + id, "_blank");
+  }
+});
+
+$(document).on("click", "#btn-generar-cc", function() {
+  var id = $('input[name="id_factura"]').val();
+  console.log("Generando cuenta de cobro para ID: " + id);
+  if (id != "" && id != null) {
+    window.open("modules/reportes/imprimir-cuenta-cobro.php?id=" + id.trim(), "_blank");
+  } else {
+    $.Notification.notify("error", "bottom-right", "Error", "ID de factura no encontrado");
+  }
+});
+
 function postCambioEstado(){
   $('select[name="facturacion_estado"]').val("1");
   $('input[name="facturacion_fecha"]').focus();
@@ -845,6 +881,7 @@ function postCambioEstado(){
   $("#col-btn-anular-factura").hide();
   $("#col-btn-pendiente-factura").hide();
   $("#col-btn-cancelar-factura").hide();
+  $("#col-btn-cuenta-cobro").hide();
 
   $('select[name="facturacion_formpagotext"]').prop("disabled",false);
   $('#div_diaspago').hide();
@@ -871,7 +908,7 @@ $(document).ready(function() {
 function buscarCorrelativo(){
   serieFactura = $('select[name="facturacion_series"]').val();
   
-  $.post("../../modules/facturacion/obtener-correlativo-doc.php",
+  $.post("modules/facturacion/obtener-correlativo-doc.php",
     { TIPO_DOC: "INVOICE", SERIE: serieFactura }, function(data) {
     if(data != "" && data != null){
       $('input[name="facturacion_nro"]').val(data);
@@ -883,3 +920,4 @@ $( 'select[name="facturacion_series"]' ).change(function() {
   idDoc = $('input[name="id_factura"]').val();
   if (idDoc == "") buscarCorrelativo();
 });
+

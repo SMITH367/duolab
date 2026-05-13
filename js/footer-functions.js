@@ -66,7 +66,7 @@ function crear_cookie(name, value, days2expire, path) {
     var expires = date.toUTCString();
     document.cookie = name + '=' + value + ';' +
       'expires=' + expires + ';' +
-      'path=' + path + ';';
+      'path=' + "/CREAMOS/" + ';';
 }
   
 function leer_cookie(name) {
@@ -87,5 +87,5 @@ function leer_cookie(name) {
 }
   
 function eliminar_cookie(name) {
-  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/CREAMOS/";
 }

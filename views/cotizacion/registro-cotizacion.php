@@ -85,8 +85,8 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label>RUC</label>
-                                        <input type="text" maxlength="11" class="form-control" name="cotizacion_cliruc" placeholder="RUC" required>
+                                        <label>NIT</label>
+                                        <input type="text" maxlength="11" class="form-control" name="cotizacion_cliruc" placeholder="NIT" required>
                                     </div>
                                 </div>
                                 <div class="col-md-7">
@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-md-6 text-right">
-                                            <label>IGV 18%</label>
+                                            <label>IVA 19%</label>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="number" name="cotizacion_igv" min="0" step="0.1" class="form-control" readonly>
@@ -285,8 +285,11 @@
                                 <div id="col-btn-save-cotizprod" class="col-md-12">
                                     <button type="submit" id="btn-save-cotizprod" class="btn btn-success btn-block"><i class="fa fa-save fa-1x"></i>&nbsp;&nbsp;<font>Grabar cotización </font></button>
                                 </div>
-                                <div id="col-btn-anular-cotizprod" class="col-md-6">
+                                <div id="col-btn-anular-cotizprod" class="col-md-4">
                                     <button type="button" id="btn-anular-cotizprod" class="btn btn-danger btn-block"><i class="fa fa-trash fa-1x"></i>&nbsp;&nbsp;<font>Anular cotización </font></button>
+                                </div>
+                                <div id="col-btn-print-cotizprod" class="col-md-4" style="display:none;">
+                                    <button type="button" id="btn-print-cotizprod" class="btn btn-info btn-block"><i class="fa fa-print fa-1x"></i>&nbsp;&nbsp;<font>Imprimir PDF </font></button>
                                 </div>
                             </div>
 

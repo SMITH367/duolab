@@ -9,7 +9,7 @@ $(document).ready(function(){
   $("#m_ordenes").attr("class","nav-link active");
   $("#m_ordenes").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_orden_servicio").attr("class","nav-link active");
-  $(document).prop('title', 'Orden de Servicio - DuoLab Group');
+  $(document).prop('title', 'Orden de Servicio - CREAMOS');
 });
 
 var porc_igv = 0.18;
@@ -31,14 +31,14 @@ $('select[name="orden_tipopagotext"]').on("change", function() {
   }
 });
 
-$.post("../../modules/ordenes/listar-ordenes.php", {orden_tipo:"SERVICIO"}, function(data) {
+$.post("modules/ordenes/listar-ordenes.php", {orden_tipo:"SERVICIO"}, function(data) {
   $('select[name="orden_listado"]').empty();
   $('select[name="orden_listado"]').select2({
     data: JSON.parse(data)
   });
 });
 
-$.post("../../modules/proveedores/listar-proveedores.php", function(data) {
+$.post("modules/proveedores/listar-proveedores.php", function(data) {
   $('select[name="orden_proveedor"]').empty();
   $('select[name="orden_proveedor"]').select2({
     data: JSON.parse(data)
@@ -48,7 +48,7 @@ $.post("../../modules/proveedores/listar-proveedores.php", function(data) {
 /*
 $('input[name="orden_cotizacion"]').autocomplete({
   source: function(request, response) {
-    $.getJSON("../../modules/cotizaciones/obtener-cotizaciones.php", { orden_cotizacion: $('input[name="orden_cotizacion"]').val() }, response);
+    $.getJSON("modules/cotizaciones/obtener-cotizaciones.php", { orden_cotizacion: $('input[name="orden_cotizacion"]').val() }, response);
   },
   select: function (event, ui) {
     $(this).val(ui.item.label);
@@ -72,7 +72,7 @@ $('select[name="orden_proveedor"]').on('change', function(){
     $('input[name="orden_porcdscto"]').val("0");
     $('input[name="orden_valordscto"]').val("0");
     $.post(
-      "../../modules/proveedores/consultar-proveedor.php",
+      "modules/proveedores/consultar-proveedor.php",
       { FILTER:provid },
       function(data) {
         var mydata = JSON.parse(data);
@@ -83,7 +83,7 @@ $('select[name="orden_proveedor"]').on('change', function(){
 
     /*$('input[name="orden_producto_val"]').autocomplete({  
       source: function(request, response) {
-        $.getJSON("../../modules/productos/obtener-productos.php", { 
+        $.getJSON("modules/productos/obtener-productos.php", { 
           orden_nomprod: $('input[name="orden_producto_val"]').val(), prov_id: provid 
         }, response);
       },
@@ -98,7 +98,7 @@ $('select[name="orden_proveedor"]').on('change', function(){
         if (ui.item.id != "" && ui.item.id != null) {
           $('input[name="orden_cantidad"]').prop("disabled", false);
           $.post(
-            "../../modules/productos/consultar-productos.php",
+            "modules/productos/consultar-productos.php",
             { FILTER: ui.item.id, ESTADO:'1' },
             function(data) {
               $('input[name="orden_porcdscto"]').prop("disabled", false);
@@ -136,7 +136,7 @@ var precioprod_temp = 0;
   if (DATA_ID != "" && DATA_ID != null) {
     $('input[name="orden_cantidad"]').prop("disabled", false);
     $.post(
-      "../../modules/productos/consultar-productos.php",
+      "modules/productos/consultar-productos.php",
       { FILTER: DATA_ID, ESTADO:'1' },
       function(data) {
         $('input[name="orden_porcdscto"]').prop("disabled", false);
@@ -202,7 +202,7 @@ $('input[name="orden_cantidad"]').on("change", function() {
 
 
 var tbl_prodordcompra = $("#table-ord-servicios").DataTable({
-  "language": {"url": "../../plugins/datatables/Spanish.json"}
+  "language": {"url": "plugins/datatables/Spanish.json"}
 });
 
 var total_temporal = 0;
@@ -427,7 +427,7 @@ $("#btn-select-orden").click(function() {
       }
     });
     $.post(
-      "../../modules/ordenes/consultar-orden.php",
+      "modules/ordenes/consultar-orden.php",
       { TIPO_ORDEN:"SERVICIO", FILTER: DATA_ID, ESTADO: "ALL" },
       function(data) {
         var data_json = JSON.parse(data);
@@ -474,7 +474,7 @@ $("#btn-select-orden").click(function() {
         codigo_idorden = data_json[0]["IDORDEN"];
         
         $.post(
-          "../../modules/ordenes/consultar-detalle-orden.php",
+          "modules/ordenes/consultar-detalle-orden.php",
           { IDORDEN: codigo_idorden },
           function(data) {
 
@@ -580,7 +580,7 @@ $("#FRM_INSERT_DETA_ORDSERV").submit(function (e) {
             $("#btn-save-orden").prop("disabled", true);
             $("#btn-add-prodtporden").prop("disabled", true);
 
-            $.post("../../modules/ordenes/listar-ordenes.php", {orden_tipo:"SERVICIO"}, function(data) {
+            $.post("modules/ordenes/listar-ordenes.php", {orden_tipo:"SERVICIO"}, function(data) {
               $('select[name="orden_listado"]').empty();
               $('select[name="orden_listado"]').select2({
                 data: JSON.parse(data)
@@ -632,7 +632,7 @@ $("#btn-delete-orden").click(function() {
     }).then(result => {
       if (result.value) {
         $.post(
-          "../../modules/ordenes/eliminar-orden.php",
+          "modules/ordenes/eliminar-orden.php",
           { ID_ORDER: id_val },
           function(data) {
             if (data == true) {
@@ -644,7 +644,7 @@ $("#btn-delete-orden").click(function() {
 
               $('select[name="orden_proveedor"]').trigger("change");     
               
-              $.post("../../modules/ordenes/listar-ordenes.php", {orden_tipo:"SERVICIO"}, function(data) {
+              $.post("modules/ordenes/listar-ordenes.php", {orden_tipo:"SERVICIO"}, function(data) {
                 $('select[name="orden_listado"]').empty();
                 $('select[name="orden_listado"]').select2({
                   data: JSON.parse(data)
@@ -687,3 +687,4 @@ $(document).ready(function() {
     },500);
   }
 });
+

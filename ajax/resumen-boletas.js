@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#m_resumen_boleta").attr("class","nav-link active");
   $("#m_boleta").attr("class","nav-link active");
   $("#m_boleta").parent().attr("class","nav-item has-treeview menu-open");
-  $(document).prop('title', 'Resumen de Boletas - DuoLab Group');
+  $(document).prop('title', 'Resumen de Boletas - CREAMOS');
 });
 
 var tbl_facturas = $("#table-boletas").DataTable({
@@ -26,7 +26,7 @@ var tbl_facturas = $("#table-boletas").DataTable({
                 text: '<i class="fa fa-print"></i>&nbsp;&nbsp;Imprimir'
             }
         ],
-  language: { url: "../../plugins/datatables/Spanish.json" }
+  language: { url: "plugins/datatables/Spanish.json" }
 });
 
 listarDocumentos(true);
@@ -36,7 +36,7 @@ tbl_facturas.columns([0]).visible(false);
 /*
 $('input[name="factura_numero"]').autocomplete({
     source: function(request, response) {
-      $.getJSON("../../modules/facturacion/obtener-boletas.php", { factura_num: $('input[name="factura_numero"]').val() }, response);
+      $.getJSON("modules/facturacion/obtener-boletas.php", { factura_num: $('input[name="factura_numero"]').val() }, response);
     },
     select: function (event, ui) {
       $(this).val(ui.item.label);
@@ -46,7 +46,7 @@ $('input[name="factura_numero"]').autocomplete({
 
 $('input[name="factura_cliente"]').autocomplete({  
     source: function(request, response) {
-      $.getJSON("../../modules/clientes/obtener-clientes.php", { 
+      $.getJSON("modules/clientes/obtener-clientes.php", { 
         cotiz_nomcliente: $('input[name="factura_cliente"]').val()
       }, response);
     },
@@ -105,8 +105,8 @@ $("#table-boletas").contextMenu({
           switch (action) {
 
             case "edit":
-                crear_cookie('COOKIE_ID_FACT', row_id, 1, "/");
-                location.href = "registro-boleta";
+                crear_cookie('COOKIE_ID_FACT', row_id, 1, "/CREAMOS/");
+                location.href = "facturacion/registro-boleta";
                 break;
 
             case "vigente":
@@ -120,7 +120,7 @@ $("#table-boletas").contextMenu({
               }).then(result => {
                 if (result.value) {
                   $.post(
-                      "../../modules/facturacion/cambiar-estado-doc.php",
+                      "modules/facturacion/cambiar-estado-doc.php",
                         { TIPO_DOC: 'RECEIPT', ID_DOC: row_id, ESTADO_DOC : 1},
                         function(data) {
                             if(data){
@@ -155,7 +155,7 @@ $("#table-boletas").contextMenu({
               }).then(result => {
                 if (result.value) {
                   $.post(
-                      "../../modules/facturacion/cambiar-estado-doc.php",
+                      "modules/facturacion/cambiar-estado-doc.php",
                         { TIPO_DOC: 'RECEIPT', ID_DOC: row_id, ESTADO_DOC : 2},
                         function(data) {
                             if(data){
@@ -190,7 +190,7 @@ $("#table-boletas").contextMenu({
               }).then(result => {
                 if (result.value) {
                   $.post(
-                      "../../modules/facturacion/cambiar-estado-doc.php",
+                      "modules/facturacion/cambiar-estado-doc.php",
                         { TIPO_DOC: 'RECEIPT', ID_DOC: row_id, ESTADO_DOC : 3},
                         function(data) {
                             if(data){
@@ -225,7 +225,7 @@ $("#table-boletas").contextMenu({
               }).then(result => {
                 if (result.value) {
                   $.post(
-                      "../../modules/facturacion/cambiar-estado-doc.php",
+                      "modules/facturacion/cambiar-estado-doc.php",
                         { TIPO_DOC: 'RECEIPT', ID_DOC: row_id, ESTADO_DOC : 4},
                         function(data) {
                             if(data){
@@ -296,7 +296,7 @@ function listarDocumentos(loadMode){
     });
 
     $.post(
-        "../../modules/facturacion/filtrar-doc.php",
+        "modules/facturacion/filtrar-doc.php",
         { TIPO_DOC: 'RECEIPT', defaultLoad: defaultLoad, fact_nroo:fact_nroo, fact_client:fact_client, fact_fini:fact_fini, 
           fact_ffin:fact_ffin, fact_estado:fact_estado, fact_vendedor: fact_vendedor },
         function(data) {
@@ -321,3 +321,5 @@ function listarDocumentos(loadMode){
         Swal.close();
     });
 }
+
+

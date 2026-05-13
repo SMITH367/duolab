@@ -1,25 +1,34 @@
 <?php
 
-include './global/config.php';
+include_once dirname(__DIR__, 2) . '/global/config.php';
 
-// Get the web directory name from the URL
-// This is useful for setting paths relative to the web root
-$url_array = explode("/", $_SERVER["REQUEST_URI"]);
-$web_dir_name = "/" . $url_array[1];
-$web_root_dir = $_SERVER['DOCUMENT_ROOT'] . $web_dir_name;
+// Get the project root directory (physical path)
+$web_root_dir = str_replace('\\', '/', dirname(__DIR__, 2));
+$doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+
+// Calculate the web directory name by comparing the physical path with the document root
+$web_dir_name = str_ireplace($doc_root, '', $web_root_dir);
+
+// Ensure it starts with a / and has no trailing /
+$web_dir_name = '/' . ltrim($web_dir_name, '/');
+if ($web_dir_name === '/') {
+    $web_dir_name = '';
+} else {
+    $web_dir_name = rtrim($web_dir_name, '/');
+}
 
 // Set the default timezone
 // This is important for date and time functions to work correctly
 date_default_timezone_set("America/Lima");
 
+// Load Web Functions
+include_once dirname(__DIR__, 2) . "/modules/web_functions.php";
+$functions = new WebFunctions();
+
 if (isset($_GET["url"])) {
 
     // Initialize and check session
-    include $web_root_dir.'/global/session.php';
-
-    // Load Web Functions
-    include $web_root_dir."/modules/web_functions.php";
-    $functions = new WebFunctions();
+    include_once $web_root_dir.'/global/session.php';
 
     // Web Header (Navbar)
     include $web_root_dir."/views/template/header.php";
@@ -29,18 +38,24 @@ if (isset($_GET["url"])) {
 
     // Web View (Content)
     $url = explode("/", $_GET["url"]);
-    $url_complete = "";
-
-    if (array_key_exists(2,$url)) {
-        $folder = $url[1];
-        $page_name = $url[2];
-        $url_complete = $folder."/". $page_name;
-    } else {
-        $page_name = $url[1];
-        $url_complete = $page_name;
-    }
     
-    include $web_root_dir."/views/".$url_complete.".php";
+    // If the URL starts with 'views/', we ignore that first part for routing purposes
+    if ($url[0] == 'views') {
+        array_shift($url);
+    }
+
+    // Join the remaining parts to form the path to the view file
+    $url_complete = implode("/", $url);
+    $page_name = end($url);
+    
+    $view_file = $web_root_dir . "/views/" . $url_complete . ".php";
+
+    if (file_exists($view_file)) {
+        include $view_file;
+    } else {
+        echo "<h1>Error 404</h1>";
+        echo "La vista <b>" . $url_complete . "</b> no existe.";
+    }
 
     // Web Footer
     include $web_root_dir."/views/template/footer.php";
@@ -58,7 +73,7 @@ if (isset($_GET["url"])) {
 
 } else {
     // Show login page
-    include $web_root_dir . "/views/login.php";
+    include_once $web_root_dir . "/views/login.php";
 }
 
 ?>

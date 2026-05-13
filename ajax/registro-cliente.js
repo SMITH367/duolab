@@ -2,14 +2,14 @@ $("#col-btn-delete-client").hide();
 
 $(document).ready(function(){
   $("#m_clientes").attr("class","nav-link active");
-  $(document).prop('title', 'Clientes - DuoLab Group');
+  $(document).prop('title', 'Clientes - CREAMOS');
 });
 
 var tabla_clientes = $('#table-clientes');
 
 tabla_clientes.dataTable({
     "ajax": {
-        "url": "../../modules/clientes/consultar-cliente.php",
+        "url": "modules/clientes/consultar-cliente.php",
         "type": "POST",
         "data": { "FILTER": "ALL" },
     },
@@ -42,7 +42,7 @@ tabla_clientes.dataTable({
             } 
         ],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
 
@@ -103,7 +103,7 @@ $("#FRM_INSERT_CLIENTE").submit(function (e) {
     });
 });
 
-$.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DEPARTMENTS" }, function (data) {
+$.post("modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DEPARTMENTS" }, function (data) {
     $('select[name="cliente_departamento"]').select2({
         data: JSON.parse(data)
     })
@@ -112,7 +112,7 @@ $.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DEPARTMENTS"
 $('select[name="cliente_departamento"]').on("change", function (e) {
     element = $(this);
     ID_DEPART = element.val();
-    $.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "PROVINCES", ID_DEPART: ID_DEPART }, function (data) {
+    $.post("modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "PROVINCES", ID_DEPART: ID_DEPART }, function (data) {
         $('select[name="cliente_provincia"]').empty();
         $('select[name="cliente_provincia"]').select2({
             data: JSON.parse(data)
@@ -123,7 +123,7 @@ $('select[name="cliente_departamento"]').on("change", function (e) {
 $('select[name="cliente_provincia"]').on("change", function (e) {
     element = $(this);
     ID_PROV = element.val();
-    $.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DISTRICTS", ID_PROV: ID_PROV }, function (data) {
+    $.post("modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DISTRICTS", ID_PROV: ID_PROV }, function (data) {
         $('select[name="cliente_distrito"]').empty();
         $('select[name="cliente_distrito"]').select2({
             data: JSON.parse(data)
@@ -143,7 +143,7 @@ tabla_clientes.on('click', 'tr', function () {
             Swal.showLoading();
         }
     });
-    $.post("../../modules/clientes/consultar-cliente.php", { FILTER: id_row }, function (data) {
+    $.post("modules/clientes/consultar-cliente.php", { FILTER: id_row }, function (data) {
         var data_json = JSON.parse(data);
         $('input[name="cliente_codigo"]').focus();
         $('#btn-delete-client').attr("js-id", data_json[0]["CODIGO"]);
@@ -166,14 +166,14 @@ tabla_clientes.on('click', 'tr', function () {
         $("#col-btn-save-client").attr("class", "col-md-6");
         $("#col-btn-delete-client").show("fast");
 
-        $.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DEPARTMENTS" }, function (data) {
+        $.post("modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DEPARTMENTS" }, function (data) {
             $('select[name="cliente_departamento"]').select2({
                 data: JSON.parse(data)
             })
             $('select[name="cliente_departamento"]').val(data_json[0]["DEPARTAMENTO"]);
             $('select[name="cliente_departamento"]').trigger('change');
         }).then(function () {
-            $.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "PROVINCES", ID_DEPART: data_json[0]["DEPARTAMENTO"] }, function (data) {
+            $.post("modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "PROVINCES", ID_DEPART: data_json[0]["DEPARTAMENTO"] }, function (data) {
                 $('select[name="cliente_provincia"]').empty();
                 $('select[name="cliente_provincia"]').select2({
                     data: JSON.parse(data)
@@ -181,7 +181,7 @@ tabla_clientes.on('click', 'tr', function () {
                 $('select[name="cliente_provincia"]').val(data_json[0]["PROVINCIA"]);
                 $('select[name="cliente_provincia"]').trigger('change');
             }).then(function () {
-                $.post("../../modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DISTRICTS", ID_PROV: data_json[0]["PROVINCIA"] }, function (data) {
+                $.post("modules/ubigeo/consultar-ubigeo.php", { MODE_UBIGEO: "DISTRICTS", ID_PROV: data_json[0]["PROVINCIA"] }, function (data) {
                     $('select[name="cliente_distrito"]').empty();
                     $('select[name="cliente_distrito"]').select2({
                         data: JSON.parse(data)
@@ -210,7 +210,7 @@ $("#btn-delete-client").click(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.post("../../modules/clientes/eliminar-cliente.php", { cliente_id: id_val }, function (data) {
+                $.post("modules/clientes/eliminar-cliente.php", { cliente_id: id_val }, function (data) {
                     if (data == true) {
                         $("#FRM_INSERT_CLIENTE").find("input, textarea").val("");
                         $('#table-clientes').DataTable().ajax.reload();
@@ -226,3 +226,4 @@ $("#btn-delete-client").click(function () {
         })
     }
 })
+

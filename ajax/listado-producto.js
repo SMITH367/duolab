@@ -2,14 +2,14 @@ $(document).ready(function(){
   $("#m_almacen").attr("class","nav-link active");
   $("#m_almacen").parent().attr("class","nav-item has-treeview menu-open");
   $("#m_listado_producto").attr("class","nav-link active");
-  $(document).prop('title', 'Listado de Productos - DuoLab Group');
+  $(document).prop('title', 'Listado de Productos - CREAMOS');
 });
 
 var tabla_productos = $('#table-productos');
 
 tabla_productos.DataTable({
     "ajax": {
-        "url": "../../modules/productos/consultar-productos.php",
+        "url": "modules/productos/consultar-productos.php",
         "type": "POST",
         "data": { "FILTER": "ALL", "ESTADO": "ALL" },
     },
@@ -31,7 +31,7 @@ tabla_productos.DataTable({
             {
                 text: '<i class="fa fa-plus-square fa-1x"></i>&nbsp;&nbsp;Nuevo producto',
                 action: function ( e, dt, node, config ) {
-                    window.location.assign("../../views/productos/registro-producto");
+                    window.location.assign("views/productos/registro-producto");
                 }
             },
             {
@@ -48,7 +48,7 @@ tabla_productos.DataTable({
             }
         ],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
 
@@ -65,5 +65,6 @@ tabla_productos.on('click', 'tr', function () {
         }
     });
 
-    window.location.assign("../../views/productos/editar-producto?id=" + id_row);
+    window.location.assign("views/productos/editar-producto?id=" + id_row);
 });
+

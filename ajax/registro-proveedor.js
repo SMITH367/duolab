@@ -2,7 +2,7 @@ $("#col-btn-delete-proveedor").hide();
 
 $(document).ready(function(){
   $("#m_proveedores").attr("class","nav-link active");
-  $(document).prop('title', 'Proveedores - DuoLab Group');
+  $(document).prop('title', 'Proveedores - CREAMOS');
 });
 
 $('select[name="proveedor_banco_1"], select[name="proveedor_banco_2"]').select2({
@@ -29,7 +29,7 @@ var tabla_proveedores = $('#table-proveedores');
 
 tabla_proveedores.dataTable({
     "ajax": {
-        "url": "../../modules/proveedores/consultar-proveedor.php",
+        "url": "modules/proveedores/consultar-proveedor.php",
         "type": "POST",
         "data": { "FILTER": "ALL" },
     },
@@ -59,7 +59,7 @@ tabla_proveedores.dataTable({
             }
         ],
     "language": {
-            "url": "../../plugins/datatables/Spanish.json"
+            "url": "plugins/datatables/Spanish.json"
         }
 });
 
@@ -136,7 +136,7 @@ tabla_proveedores.on('click', 'tr', function () {
             Swal.showLoading();
         }
     });
-    $.post("../../modules/proveedores/consultar-proveedor.php", { FILTER: id_row }, function (data) {
+    $.post("modules/proveedores/consultar-proveedor.php", { FILTER: id_row }, function (data) {
         var data_json = JSON.parse(data);        
         $('#btn-delete-proveedor').attr("js-id", data_json[0]["CODIGO"]);
         $('input[name="proveedor_id"]').val(data_json[0]["CODIGO"]);
@@ -196,7 +196,7 @@ $("#btn-delete-proveedor").click(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.post("../../modules/proveedores/eliminar-proveedor.php", { proveedor_id: id_val }, function (data) {
+                $.post("modules/proveedores/eliminar-proveedor.php", { proveedor_id: id_val }, function (data) {
                     if (data == true) {
                         $("#FRM_INSERT_PROVEEDOR").find("input, textarea").val("");
                         $('#table-proveedores').DataTable().ajax.reload();
@@ -211,3 +211,4 @@ $("#btn-delete-proveedor").click(function () {
         })
     }
 })
+

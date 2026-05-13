@@ -4,7 +4,7 @@ $(document).ready(function(){
   $("#m_resumen_cotizacion").attr("class","nav-link active");
   $("#m_cotizacion").attr("class","nav-link active");
   $("#m_cotizacion").parent().attr("class","nav-item has-treeview menu-open");
-  $(document).prop('title', 'Resumen de Cotizaciones - DuoLab Group');
+  $(document).prop('title', 'Resumen de Cotizaciones - CREAMOS');
 });
 
 var tbl_cotizaciones = $("#table-cotizaciones").DataTable({
@@ -28,11 +28,11 @@ var tbl_cotizaciones = $("#table-cotizaciones").DataTable({
                 text: '<i class="fa fa-print"></i>&nbsp;&nbsp;Imprimir'
             }
         ],
-  language: { url: "../../plugins/datatables/Spanish.json" }
+  language: { url: "plugins/datatables/Spanish.json" }
 });
 
 $.post(
-  "../../modules/cotizaciones/consultar-cotizacion.php",
+  "modules/cotizaciones/consultar-cotizacion.php",
   { FILTER: "ALL", ESTADO: "ALL" },
   function(data) {
     tbl_cotizaciones.clear().draw();
@@ -60,7 +60,7 @@ tbl_cotizaciones.columns([0]).visible(false);
 
 $('input[name="cotizacion_numero"]').autocomplete({
     source: function(request, response) {
-      $.getJSON("../../modules/cotizaciones/obtener-cotizaciones.php", { orden_cotizacion: $('input[name="cotizacion_numero"]').val() }, response);
+      $.getJSON("modules/cotizaciones/obtener-cotizaciones.php", { orden_cotizacion: $('input[name="cotizacion_numero"]').val() }, response);
     },
     select: function (event, ui) {
       $(this).val(ui.item.label);
@@ -69,7 +69,7 @@ $('input[name="cotizacion_numero"]').autocomplete({
 
 $('input[name="cotizacion_cliente"]').autocomplete({  
     source: function(request, response) {
-      $.getJSON("../../modules/clientes/obtener-clientes.php", { 
+      $.getJSON("modules/clientes/obtener-clientes.php", { 
         cotiz_nomcliente: $('input[name="cotizacion_cliente"]').val()
       }, response);
     },
@@ -141,7 +141,7 @@ $("#btn-buscar").click(function(){
             }
         });
         $.post(
-            "../../modules/cotizaciones/filtrar-cotizaciones.php",
+            "modules/cotizaciones/filtrar-cotizaciones.php",
             { cotiz_nroo:cotiz_nroo, cotiz_client:cotiz_client, cotiz_fini:cotiz_fini, cotiz_ffin:cotiz_ffin  },
             function(data) {
                 tbl_cotizaciones.clear().draw();
@@ -177,17 +177,17 @@ $("#table-cotizaciones").contextMenu({
         var accion = key;
         switch (accion) {
         case "edit":
-            crear_cookie('COOKIE_ID_COTIZ', row_id, 1, "/");
-            location.href = "registro-cotizacion";
+            crear_cookie('COOKIE_ID_COTIZ', row_id, 1, "/CREAMOS/");
+            location.href = "cotizacion/registro-cotizacion";
             break;
         case "delete":
             $.post(
-                "../../modules/cotizaciones/anular-cotizacion.php",
+                "modules/cotizaciones/anular-cotizacion.php",
                 { ID_COTIZ:row_id },
                 function(data) {
                     if(data == true){
                       $.post(
-                        "../../modules/cotizaciones/consultar-cotizacion.php",
+                        "modules/cotizaciones/consultar-cotizacion.php",
                         { FILTER: "ALL", ESTADO: "ALL" },
                         function(data) {
                           tbl_cotizaciones.clear().draw();
@@ -238,3 +238,4 @@ $("#btn-reset").click(function (e) {
     e.preventDefault();
     location.reload();
 });
+
