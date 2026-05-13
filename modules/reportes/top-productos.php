@@ -61,7 +61,7 @@ $pdf->SetHeaderTitle(utf8_decode($reportTitle));
 $pdf->AddPage("L","A4",0);
 $pdf->SetTitle($reportTitle,true);
 $pdf->SetSubject($reportTitle,true);
-$pdf->SetAuthor("ESG Perú",true);
+$pdf->SetAuthor("CREAMOS",true);
 $pdf->SetCreator("fpdf v1.82",true);
 
 $pdf->SetFillColor(232,232,232);

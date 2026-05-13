@@ -117,8 +117,8 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label>RUC</label>
-                                        <input type="text" maxlength="11" class="form-control" name="facturacion_cliruc" placeholder="RUC" required>
+                                        <label>NIT</label>
+                                        <input type="text" maxlength="11" class="form-control" name="facturacion_cliruc" placeholder="NIT" required>
                                     </div>
                                 </div>
                                 <div class="col-md-7">

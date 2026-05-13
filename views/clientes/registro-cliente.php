@@ -28,8 +28,8 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>RUC</label>
-                                        <input minlength="11" maxlength="11" type="text" class="form-control" placeholder="Ingrese RUC" name="cliente_ruc" required>
+                                        <label>NIT</label>
+                                        <input minlength="8" maxlength="15" type="text" class="form-control" placeholder="Ingrese NIT" name="cliente_ruc" required>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
@@ -243,7 +243,7 @@
                             <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>RUC</th>
+                                    <th>NIT</th>
                                     <th>Razón Social</th>
                                     <th>Nombre Comercial</th>
                                     <th>Teléfono</th>
@@ -254,7 +254,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Código</th>
-                                    <th>RUC</th>
+                                    <th>NIT</th>
                                     <th>Razón Social</th>
                                     <th>Nombre Comercial</th>
                                     <th>Teléfono</th>

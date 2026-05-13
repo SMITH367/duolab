@@ -246,7 +246,7 @@
 	                            </div>
 	                            <div class="col-md-4">
 	                                <div class="form-group">
-	                                    <label>RUC / N° Proveedor</label>
+	                                    <label>NIT / N° Proveedor</label>
 	                                    <input type="text" class="form-control" name="orden_provruc" value="" placeholder="Seleccione un proveedor" readonly>
 	                                </div>
 	                            </div>

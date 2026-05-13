@@ -15,7 +15,7 @@ if (isset($_SESSION['loggedInUser'])) {
   <?php $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://"; ?>
   <base href="<?php echo $protocol . $_SERVER['HTTP_HOST'] . $functions->direct_sistema() . '/'; ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Empresa peruana dedicada a la IMPORTACIÓN, COMERCIALIZACIÓN Y DISTRIBUCIÓN de productos del rubro cosmético y farmacéutico.">
+  <meta name="description" content="Empresa colombiana dedicada a la IMPORTACIÓN, COMERCIALIZACIÓN Y DISTRIBUCIÓN de productos del rubro cosmético y farmacéutico.">
   <meta name="author" content="Christian Cano">
 
   <title>CREAMOS</title>
