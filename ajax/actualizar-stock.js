@@ -78,24 +78,27 @@ $("#FRM_INSERT_MOV").submit(function (e) {
             Swal.fire({
                 html: '<h4>Guardando información</h4>',
                 allowOutsideClick: false,
-                onBeforeOpen: () => {
+                didOpen: () => {
                     Swal.showLoading();
                 }
             })
         },
         success: function (data) {
-            if (data == "ERROR") {
-                $.Notification.notify("error", "bottom-right", "Error de guardado", "No se pudieron guardar datos del movimiento de stock");
-                Swal.close();
-            } else if (data == "OK_INSERT") {
+            Swal.close();
+            if (data.trim() == "OK_INSERT") {
                 $.Notification.notify("success", "bottom-right", "Movimiento guardado", "Stock Actualizado");
                 form.find("textarea, select").val("");
                 $('input[name="mov_obs"]').val("");
                 $('input[name="mov_cantidad"]').val("1");
                 $('select[name="mov_prod_code"]').trigger('change');
                 $('select[name="mov_prov"]').trigger('change');
-                Swal.close();
+            } else {
+                $.Notification.notify("error", "bottom-right", "Error de guardado", "No se pudieron guardar datos del movimiento de stock: " + data);
             }
+        },
+        error: function(xhr, status, error) {
+            Swal.close();
+            $.Notification.notify("error", "bottom-right", "Error de servidor", "Ocurrió un error en la comunicación con el servidor.");
         }
     });
 });

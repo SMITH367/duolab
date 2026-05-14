@@ -112,19 +112,29 @@ $('select[name="cotizacion_producto"]').on("change", function() {
       { FILTER: DATA_ID, ESTADO: "1" },
       function(data) {
         var mydata = JSON.parse(data);
-        stock_producto = parseInt(mydata[0]["CANTIDAD"]);
-        $('input[name="cotizacion_nameprod"]').val(mydata[0]["NOMBRE"]);
-        $('input[name="cotizacion_proddesc"]').val(mydata[0]["DESCRIPTION"]);
-        $('input[name="cotizacion_prodprecio"]').val(mydata[0]["PRECIO"]);
-        $('input[name="cotizacion_stockprod"]').val(mydata[0]["CANTIDAD"]);
-        if (stock_producto <= 0) {
+        if (mydata && mydata.length > 0) {
+          stock_producto = parseInt(mydata[0]["CANTIDAD"]);
+          $('input[name="cotizacion_nameprod"]').val(mydata[0]["NOMBRE"]);
+          $('input[name="cotizacion_proddesc"]').val(mydata[0]["DESCRIPTION"]);
+          $('input[name="cotizacion_prodprecio"]').val(mydata[0]["PRECIO"]);
+          $('input[name="cotizacion_stockprod"]').val(mydata[0]["CANTIDAD"]);
+          
+          if (stock_producto <= 0) {
+            $.Notification.notify(
+              "warning",
+              "bottom-right",
+              "Sin stock",
+              "El producto no cuenta con existencias, pero puede cotizarse."
+            );
+          }
+          $("#btn-add-prodtocotiz").prop("disabled", false);
+        } else {
           $.Notification.notify(
             "error",
             "bottom-right",
-            "Stock agotado",
-            "Producto seleccionado no cuenta con existencias"
+            "Error",
+            "No se pudo obtener la información del producto."
           );
-          $("#btn-add-prodtocotiz").prop("disabled", true);
         }
       }
     );
@@ -138,46 +148,18 @@ $('input[name="cotizacion_prodcant"]').on("change", function() {
   stock_prod = parseInt($('input[name="cotizacion_stockprod"]').val());
   select_prod = $('select[name="cotizacion_producto"]').val();
 
-  if (cant_prod <= stock_prod) {
-    tbl_data = tbl_prodcotiz
-      .rows()
-      .data()
-      .toArray();
-
-    var cantidad_final = 0;
-    cantidad_final += cant_prod;
-
-    if (tbl_data.length > 0) {
-      for (i = 0; i < tbl_data.length; i++) {
-        id_prod = tbl_data[i][0];
-        cant_agreg = parseInt(tbl_data[i][4]);
-        if (select_prod == id_prod) {
-          cantidad_final += cant_agreg;
-        }
-      }
-      //console.log(cantidad_final);
-      if (cantidad_final > stock_prod) {
-        $("#btn-add-prodtocotiz").prop("disabled", true);
-        $.Notification.notify(
-          "error",
+  if (cant_prod >= 0) {
+    $("#btn-add-prodtocotiz").prop("disabled", false);
+    if (stock_prod > 0 && cant_prod > stock_prod) {
+       /* $.Notification.notify(
+          "warning",
           "bottom-right",
           "Stock insuficiente",
-          "Producto no cuenta con stock suficiente"
-        );
-      } else if (cantidad_final <= stock_prod) {
-        $("#btn-add-prodtocotiz").prop("disabled", false);
-      }
-    } else {
-      $("#btn-add-prodtocotiz").prop("disabled", false);
+          "La cantidad supera al stock actual."
+        );*/
     }
-  } else if (cant_prod > stock_prod) {
+  } else {
     $("#btn-add-prodtocotiz").prop("disabled", true);
-    $.Notification.notify(
-      "error",
-      "bottom-right",
-      "Stock insuficiente",
-      "Producto no cuenta con stock suficiente"
-    );
   }
 });
 
